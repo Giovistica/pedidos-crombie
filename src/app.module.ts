@@ -13,7 +13,7 @@ import { PaymentsModule } from './payments/payments.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { DireccionModule } from './direccion/direccion.module';
 import { EatablesModule } from './eatables/eatables.module';
-import { Client } from './clients/clients.entity';
+import { Client } from './clients/client.entity';
 import { Delivery } from './deliverys/deliverys.entity';
 import { Eatable } from './eatables/eatables.entity';
 import { Order } from './orders/orders.entity';
@@ -45,6 +45,7 @@ import { Direccion } from './direccion/direccion.entity';
         Vehicle,
       ],
       synchronize: true,
+      autoLoadEntities: true,
     }),
     UsersModule,
     ClientsModule,

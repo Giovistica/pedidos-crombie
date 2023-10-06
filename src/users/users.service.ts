@@ -4,15 +4,21 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
+import { ClientsService } from 'src/clients/clients.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRespository: Repository<User>,
+    private clientsService: ClientsService,
   ) {}
 
-  createUser(user: CreateUserDto) {
+  async createUser(user: CreateUserDto) {
     const newUser = this.userRespository.create(user);
+    if (user.role == 'CLIENT') {
+      const newClient = await this.clientsService.createClient();
+      newUser.client = newClient;
+    }
     return this.userRespository.save(newUser);
   }
   getUsers() {

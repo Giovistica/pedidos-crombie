@@ -1,4 +1,4 @@
-import { Client } from 'src/clients/clients.entity';
+import { Client } from 'src/clients/client.entity';
 import { Delivery } from 'src/deliverys/deliverys.entity';
 import { Direccion } from 'src/direccion/direccion.entity';
 import { Restaurant } from 'src/restaurants/restaurants.entity';
@@ -48,7 +48,7 @@ export class User {
   role: 'CLIENT' | 'DELIVERY' | 'RESTAURANT';
 
   //no andan la herencia ni nada
-  @OneToOne(() => Client)
+  @OneToOne(() => Client, { cascade: true })
   @JoinColumn()
   client: Client;
 

@@ -1,4 +1,4 @@
-import { Client } from 'src/clients/clients.entity';
+import { Client } from 'src/clients/client.entity';
 import { Delivery } from 'src/deliverys/deliverys.entity';
 import { Direccion } from 'src/direccion/direccion.entity';
 import { Eatable } from 'src/eatables/eatables.entity';

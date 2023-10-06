@@ -15,6 +15,6 @@ export class Client {
   @OneToMany(() => Review, (review) => review.reviewer)
   reviewsMade: Array<Review>;
 
-  @Column()
+  @Column({ nullable: true })
   datosTarjeta: string;
 }

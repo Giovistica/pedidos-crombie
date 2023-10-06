@@ -1,4 +1,4 @@
-import { Client } from 'src/clients/clients.entity';
+import { Client } from 'src/clients/client.entity';
 import { User } from 'src/users/user.entity';
 import { Column, Entity, Generated, ManyToOne, PrimaryColumn } from 'typeorm';
 

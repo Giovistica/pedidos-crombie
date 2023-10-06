@@ -3,5 +3,6 @@ export class CreateUserDto {
   email: string;
   name: string;
   lastName: string;
+  phoneNUmber: string;
   role: 'CLIENT' | 'DELIVERY' | 'RESTAURANT';
 }
