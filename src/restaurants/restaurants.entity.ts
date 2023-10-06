@@ -15,9 +15,9 @@ export class Restaurant {
   @OneToMany(() => Eatable, (eatable) => eatable.restaurant)
   menu: Array<Eatable>;
 
-  @Column()
+  @Column({ nullable: true })
   acount: string;
 
-  @Column()
+  @Column({ default: 0 })
   punctuation: number;
 }

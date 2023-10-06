@@ -5,12 +5,14 @@ import { Repository } from 'typeorm';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
 import { ClientsService } from 'src/clients/clients.service';
+import { RestaurantsService } from 'src/restaurants/restaurants.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRespository: Repository<User>,
     private clientsService: ClientsService,
+    private restaurantService: RestaurantsService,
   ) {}
 
   async createUser(user: CreateUserDto) {
@@ -18,6 +20,10 @@ export class UsersService {
     if (user.role == 'CLIENT') {
       const newClient = await this.clientsService.createClient();
       newUser.client = newClient;
+    }
+    if (user.role == 'RESTAURANT') {
+      const newRestaurant = await this.restaurantService.createRestaurant();
+      newUser.restaurant = newRestaurant;
     }
     return this.userRespository.save(newUser);
   }
@@ -31,16 +37,16 @@ export class UsersService {
       },
     });
   }
-  getUserById(id: string) {
+  getUserById(userId: string) {
     return this.userRespository.findOne({
-      where: { id },
+      where: { userId },
     });
   }
 
   deleteUser(id: string) {
     return this.userRespository.delete(id);
   }
-  updateUser(id: string, user: UpdateUserDto) {
-    return this.userRespository.update({ id }, user);
+  updateUser(userId: string, user: UpdateUserDto) {
+    return this.userRespository.update({ userId }, user);
   }
 }

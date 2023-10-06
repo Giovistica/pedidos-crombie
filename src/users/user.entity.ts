@@ -17,7 +17,7 @@ import {
 export class User {
   @PrimaryColumn()
   @Generated('uuid')
-  id: string;
+  userId: string;
 
   @Column()
   password: string;
@@ -58,5 +58,5 @@ export class User {
 
   @OneToOne(() => Restaurant)
   @JoinColumn()
-  retaurant: Restaurant;
+  restaurant: Restaurant;
 }
