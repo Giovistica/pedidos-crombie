@@ -12,6 +12,7 @@ import {
   OneToMany,
   Entity,
 } from 'typeorm';
+import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
 
 @Entity()
 export class User {
@@ -20,9 +21,11 @@ export class User {
   userId: string;
 
   @Column()
+  @IsNotEmpty()
   password: string;
 
   @Column({ unique: true })
+  @IsEmail()
   email: string;
 
   @Column()
@@ -32,6 +35,7 @@ export class User {
   lastName: string;
 
   @Column()
+  @IsPhoneNumber()
   phoneNumber: string;
 
   @OneToOne(() => Direccion)
@@ -59,4 +63,5 @@ export class User {
   @OneToOne(() => Restaurant)
   @JoinColumn()
   restaurant: Restaurant;
+  user: Promise<Direccion | Direccion[]>;
 }

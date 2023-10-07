@@ -9,15 +9,20 @@ import { Restaurant } from 'src/restaurants/restaurants.entity';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
 import { DeliverysService } from 'src/deliverys/deliverys.service';
 import { Delivery } from 'src/deliverys/deliverys.entity';
+import { Direccion } from 'src/direccion/direccion.entity';
+import { DireccionService } from 'src/direccion/direccion.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Client, Restaurant, Delivery])],
+  imports: [
+    TypeOrmModule.forFeature([User, Client, Restaurant, Delivery, Direccion]),
+  ],
   controllers: [UsersController],
   providers: [
     UsersService,
     ClientsService,
     RestaurantsService,
     DeliverysService,
+    DireccionService,
   ],
 })
 export class UsersModule {}

@@ -5,7 +5,7 @@ import { Column, Entity, Generated, OneToMany, PrimaryColumn } from 'typeorm';
 export class Direccion {
   @PrimaryColumn()
   @Generated('uuid')
-  id: string;
+  idDireccion: string;
   @Column()
   country: string;
   @Column()
@@ -18,7 +18,7 @@ export class Direccion {
   street: string;
   @Column()
   number: string;
-  @Column()
+  @Column({ default: '-' })
   apartment: string;
   @OneToMany(() => Order, (order) => order.adress)
   orders: Array<Order>;

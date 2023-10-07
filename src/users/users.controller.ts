@@ -12,16 +12,21 @@ import {
 import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
+import { direccionDto } from 'src/direccion/dto/direccionDto';
+import { DireccionService } from 'src/direccion/direccion.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private userService: UsersService) {}
+  constructor(
+    private userService: UsersService,
+    private direccionService: DireccionService,
+  ) {}
 
   @Post()
   async createUser(@Body() newUser: CreateUserDto) {
     if (
       newUser.role !== 'RESTAURANT' &&
-      newUser.lastName !== 'CLIENT' &&
+      newUser.role !== 'CLIENT' &&
       newUser.role !== 'DELIVERY'
     ) {
       throw new HttpException(
@@ -59,6 +64,13 @@ export class UsersController {
       throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
     }
     return result;
+  }
+  @Patch(':id')
+  async updateDirección(
+    @Param('id') id: string,
+    @Body() direccion: direccionDto,
+  ) {
+    return this.userService.updateDireccion(direccion, id);
   }
 
   @Patch(':id')

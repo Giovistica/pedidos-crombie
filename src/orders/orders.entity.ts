@@ -10,6 +10,7 @@ import {
   Entity,
   Generated,
   JoinColumn,
+  JoinTable,
   ManyToMany,
   ManyToOne,
   OneToOne,
@@ -23,7 +24,7 @@ export class Order {
   id: string;
 
   @ManyToMany(() => Eatable, (eatable) => eatable.orders)
-  @JoinColumn()
+  @JoinTable()
   yummy: Array<Eatable>;
 
   @Column()
