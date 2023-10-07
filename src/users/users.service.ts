@@ -6,6 +6,7 @@ import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
 import { ClientsService } from 'src/clients/clients.service';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
+import { DeliverysService } from 'src/deliverys/deliverys.service';
 
 @Injectable()
 export class UsersService {
@@ -13,6 +14,7 @@ export class UsersService {
     @InjectRepository(User) private userRespository: Repository<User>,
     private clientsService: ClientsService,
     private restaurantService: RestaurantsService,
+    private deliveryService: DeliverysService,
   ) {}
 
   async createUser(user: CreateUserDto) {
@@ -24,6 +26,11 @@ export class UsersService {
     if (user.role == 'RESTAURANT') {
       const newRestaurant = await this.restaurantService.createRestaurant();
       newUser.restaurant = newRestaurant;
+    }
+
+    if (user.role == 'DELIVERY') {
+      const newDelivery = await this.deliveryService.createDelivery();
+      newUser.delivery = newDelivery;
     }
     return this.userRespository.save(newUser);
   }

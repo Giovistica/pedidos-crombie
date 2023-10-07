@@ -23,9 +23,9 @@ export class Delivery {
   @JoinColumn()
   vehicle: Vehicle;
 
-  @Column()
+  @Column({ nullable: true })
   acount: string;
 
-  @Column()
+  @Column({ default: 0 })
   punctuation: number;
 }

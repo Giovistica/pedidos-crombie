@@ -19,11 +19,22 @@ export class UsersController {
 
   @Post()
   async createUser(@Body() newUser: CreateUserDto) {
+    if (
+      newUser.role !== 'RESTAURANT' &&
+      newUser.lastName !== 'CLIENT' &&
+      newUser.role !== 'DELIVERY'
+    ) {
+      throw new HttpException(
+        'That role does not exist',
+        HttpStatus.BAD_REQUEST,
+      );
+    }
     const userFound = await this.userService.getUserByEmail(newUser);
 
     if (userFound) {
       throw new HttpException('User already exist', HttpStatus.CONFLICT);
     }
+
     return this.userService.createUser(newUser);
   }
   @Get()
