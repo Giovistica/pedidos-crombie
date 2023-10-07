@@ -65,7 +65,7 @@ export class UsersController {
     }
     return result;
   }
-  @Patch(':id')
+  @Patch('/direccion/:id')
   async updateDirección(
     @Param('id') id: string,
     @Body() direccion: direccionDto,
