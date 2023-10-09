@@ -19,10 +19,11 @@ export class RestaurantsService {
     return this.restaurantRespository.find();
   }
 
-  getRestaurantById(id: string) {
-    return this.restaurantRespository.findOne({
+  async getRestaurantById(id: string) {
+    const restaurant = await this.restaurantRespository.findOne({
       where: { id },
     });
+    return restaurant;
   }
 
   deleteRestaurant(id: string) {

@@ -2,7 +2,7 @@ import { Client } from 'src/clients/client.entity';
 import { Delivery } from 'src/deliverys/deliverys.entity';
 import { Direccion } from 'src/direccion/direccion.entity';
 import { Restaurant } from 'src/restaurants/restaurants.entity';
-import { Review } from 'src/rewies/reviews.entity';
+import { Review } from 'src/reviews/reviews.entity';
 import {
   Column,
   PrimaryColumn,

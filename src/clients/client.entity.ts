@@ -1,5 +1,5 @@
 import { Order } from 'src/orders/orders.entity';
-import { Review } from 'src/rewies/reviews.entity';
+import { Review } from 'src/reviews/reviews.entity';
 
 import { Entity, Column, OneToMany, PrimaryColumn, Generated } from 'typeorm';
 

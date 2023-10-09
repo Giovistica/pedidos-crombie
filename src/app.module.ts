@@ -8,7 +8,7 @@ import { ClientsModule } from './clients/clients.module';
 import { OrdersModule } from './orders/orders.module';
 import { RestaurantsModule } from './restaurants/restaurants.module';
 import { DeliverysModule } from './deliverys/deliverys.module';
-import { RewiesModule } from './rewies/rewies.module';
+import { RewiesModule } from './reviews/reviews.module';
 import { PaymentsModule } from './payments/payments.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { DireccionModule } from './direccion/direccion.module';
@@ -19,9 +19,13 @@ import { Eatable } from './eatables/eatables.entity';
 import { Order } from './orders/orders.entity';
 import { Payment } from './payments/payments.entity';
 import { Restaurant } from './restaurants/restaurants.entity';
-import { Review } from './rewies/reviews.entity';
+import { Review } from './reviews/reviews.entity';
 import { Vehicle } from './vehicles/vehicles.entity';
 import { Direccion } from './direccion/direccion.entity';
+import { OrderService } from './order/order.service';
+import { ReviewsService } from './reviews/reviews.service';
+import { ReviewesController } from './reviewes/reviewes.controller';
+import { ReviewController } from './review/review.controller';
 
 @Module({
   imports: [
@@ -58,7 +62,7 @@ import { Direccion } from './direccion/direccion.entity';
     DireccionModule,
     EatablesModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, ReviewesController, ReviewController],
+  providers: [AppService, OrderService, ReviewsService],
 })
 export class AppModule {}

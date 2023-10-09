@@ -5,10 +5,13 @@ export class Payment {
   @PrimaryColumn()
   @Generated('uuid')
   id: string;
-  @Column()
+
+  @Column({ default: 'ONWAIT' })
   status: 'PAYED' | 'REJECTED' | 'ONWAIT ';
+
   @Column()
   type: 'DEBIT' | 'CASH';
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;
 }

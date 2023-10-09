@@ -12,7 +12,7 @@ import {
 export class Eatable {
   @PrimaryColumn()
   @Generated('uuid')
-  id: string;
+  idEatable: string;
 
   @Column()
   name: string;
@@ -35,8 +35,14 @@ export class Eatable {
   @ManyToMany(() => Order, (order) => order.yummy)
   orders: Array<Order>;
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.menu)
-  restaurant: Restaurant;
   @Column()
   menuType: 'SALTY' | 'SWEET' | 'BEBERAGE';
+
+  @Column({ default: 'ACTIVE' })
+  status: 'ACTIVE' | 'DELETED';
+
+  @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus, {
+    cascade: ['insert', 'update'],
+  })
+  restaurant: Restaurant;
 }

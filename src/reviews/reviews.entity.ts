@@ -7,16 +7,22 @@ export class Review {
   @PrimaryColumn()
   @Generated('uuid')
   id: string;
+
   @Column()
   title: string;
+
   @Column()
   description: string;
+
   @Column()
   punctuation: number;
+
   @ManyToOne(() => Client, (client) => client.reviewsMade)
   reviewer: Client;
+
   @ManyToOne(() => User, (user) => user.reviewsHistory)
-  reviewed: User;
+  reviewedBy: User;
+
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;
 }
