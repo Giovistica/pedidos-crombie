@@ -99,7 +99,7 @@ export class OrdersController {
       orderFound,
       idEatable,
     );
-    
+
     return orderEatableAdded;
   }
   @Delete(':id/eatable')
@@ -115,7 +115,7 @@ export class OrdersController {
       orderFound,
       idEatable,
     );
-    
+
     return orderEatableRemoved;
   }
 }

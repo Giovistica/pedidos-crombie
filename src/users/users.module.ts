@@ -24,5 +24,6 @@ import { DireccionService } from 'src/direccion/direccion.service';
     DeliverysService,
     DireccionService,
   ],
+  exports: [UsersService],
 })
 export class UsersModule {}

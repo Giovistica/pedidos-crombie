@@ -1,17 +1,36 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateReviewDto } from './dto/createReviewDto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from './reviews.entity';
+import { ClientsService } from 'src/clients/clients.service';
+import { UsersService } from 'src/users/users.service';
 
 @Injectable()
 export class ReviewsService {
   constructor(
     @InjectRepository(Review) private reviewRespository: Repository<Review>,
+    private clientService: ClientsService,
+    private userService: UsersService,
   ) {}
 
-  createReview() {
-    const newReview = this.reviewRespository.create();
+  async createReview(
+    createReviewDto: CreateReviewDto,
+    clientId: string,
+    userId: string,
+  ) {
+    const clientFound = await this.clientService.getClientById(clientId);
+    const userFound = await this.userService.getUserById(userId);
+    console.log(userFound);
+    if (userFound.role === 'CLIENT') {
+      throw new HttpException(
+        'That user can not be reviewed',
+        HttpStatus.FORBIDDEN,
+      );
+    }
+    const newReview = this.reviewRespository.create(createReviewDto);
+    newReview.reviewer = clientFound;
+    newReview.reviewed = userFound;
     return this.reviewRespository.save(newReview);
   }
   getReviews() {

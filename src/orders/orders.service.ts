@@ -76,7 +76,7 @@ export class OrdersService {
 
     order.menuList.push(eatableFound);
 
-    order.totalPrice = this.caculatedPrice(order);
+    order.totalPrice = this.calculatedPrice(order);
     const newOrder = this.orderRespository.save(order);
     return newOrder;
   }
@@ -88,12 +88,12 @@ export class OrdersService {
       (eatable) => eatable.idEatable !== eatableFound.idEatable,
     );
 
-    order.totalPrice = this.caculatedPrice(order);
+    order.totalPrice = this.calculatedPrice(order);
     const newOrder = this.orderRespository.save(order);
     return newOrder;
   }
 
-  caculatedPrice(order: Order) {
+  calculatedPrice(order: Order) {
     let totalPrice = 0;
     order.menuList.forEach((eatable) => {
       totalPrice += eatable.price;

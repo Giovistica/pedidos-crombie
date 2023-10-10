@@ -8,6 +8,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/createReviewDto';
@@ -15,9 +16,21 @@ import { CreateReviewDto } from './dto/createReviewDto';
 @Controller('reviews')
 export class ReviewsController {
   constructor(private reviewService: ReviewsService) {}
-  @Post()
-  createReview() {
-    return this.reviewService.createReview();
+
+  @Post('')
+  async createReview(
+    //ojo que si no se pasan bien los datos guarda cualquier cosa
+    @Query('idClient') idClient: string,
+    @Query('idUser') idUser: string,
+    @Body() createReviewDto: CreateReviewDto,
+  ) {
+    console.log('client' + idClient);
+    console.log('user' + idUser);
+    return await this.reviewService.createReview(
+      createReviewDto,
+      idClient,
+      idUser,
+    );
   }
   @Get()
   getAllReviews() {
