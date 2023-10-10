@@ -8,5 +8,6 @@ import { DireccionController } from './direccion.controller';
   imports: [TypeOrmModule.forFeature([Direccion])],
   providers: [DireccionService],
   controllers: [DireccionController],
+  exports: [DireccionService],
 })
 export class DireccionModule {}

@@ -18,10 +18,11 @@ export class ClientsService {
     return this.clientRespository.find();
   }
 
-  getClientById(id: string) {
-    return this.clientRespository.findOne({
+  async getClientById(id: string) {
+    const client = await this.clientRespository.findOne({
       where: { id },
     });
+    return client;
   }
 
   deleteClient(id: string) {

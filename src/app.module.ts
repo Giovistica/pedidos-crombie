@@ -22,10 +22,6 @@ import { Restaurant } from './restaurants/restaurants.entity';
 import { Review } from './reviews/reviews.entity';
 import { Vehicle } from './vehicles/vehicles.entity';
 import { Direccion } from './direccion/direccion.entity';
-import { OrderService } from './order/order.service';
-import { ReviewsService } from './reviews/reviews.service';
-import { ReviewesController } from './reviewes/reviewes.controller';
-import { ReviewController } from './review/review.controller';
 
 @Module({
   imports: [
@@ -62,7 +58,7 @@ import { ReviewController } from './review/review.controller';
     DireccionModule,
     EatablesModule,
   ],
-  controllers: [AppController, ReviewesController, ReviewController],
-  providers: [AppService, OrderService, ReviewsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}

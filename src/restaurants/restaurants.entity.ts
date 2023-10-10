@@ -12,7 +12,7 @@ export class Restaurant {
   @OneToMany(() => Order, (order) => order.restaurant)
   ordersHistory: Array<Order>[];
 
-  @OneToMany(() => Eatable, (eatable) => eatable.restaurant, { eager: true })
+  @OneToMany(() => Eatable, (eatable) => eatable.restaurant)
   menus: Eatable[];
 
   @Column({ nullable: true })

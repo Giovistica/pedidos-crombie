@@ -10,14 +10,20 @@ import {
   Post,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
-import { UpdateOrderDto } from './dto/updeteOrderDto';
+import { CreateOrderDto } from './dto/createOrderDto';
+import { DireccionService } from 'src/direccion/direccion.service';
+import { direccionDto } from 'src/direccion/dto/direccionDto';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private orderService: OrdersService) {}
-  @Post()
-  createOrder() {
-    return this.orderService.createOrder();
+  constructor(
+    private orderService: OrdersService,
+    private direccionService: DireccionService,
+  ) {}
+
+  @Post('')
+  async createOrder(@Body() order: CreateOrderDto) {
+    return await this.orderService.createOrder(order);
   }
   @Get()
   getAllOrders() {
@@ -44,12 +50,14 @@ export class OrdersController {
   }
 
   @Patch(':id')
-  async updateOrder(@Param('id') id: string, @Body() order: UpdateOrderDto) {
+  async updateOrderDireccion(
+    @Param('id') id: string,
+    @Body() direccion: direccionDto,
+  ) {
     const orderFound = await this.orderService.getOrderById(id);
-
     if (!orderFound) {
-      throw new HttpException('Client does not exist', HttpStatus.NOT_FOUND);
+      throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
     }
-    return this.orderService.updateOrder(id, order);
+    return this.orderService.updateOrderDireccion(orderFound, direccion);
   }
 }

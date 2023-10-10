@@ -27,13 +27,15 @@ export class Order {
   @JoinTable()
   yummy: Array<Eatable>;
 
-  @Column()
+  @Column({ default: 0 })
   totalPrice: number;
 
   @ManyToOne(() => Direccion, (direccion) => direccion.orders)
   adress: Direccion;
 
-  @ManyToOne(() => Client, (client) => client.ordersHistory)
+  @ManyToOne(() => Client, (client) => client.ordersHistory, {
+    cascade: ['insert', 'update'],
+  })
   client: Client;
 
   @ManyToOne(() => Restaurant, (restaurant) => restaurant.ordersHistory)
@@ -42,7 +44,7 @@ export class Order {
   @ManyToOne(() => Delivery, (delivery) => delivery.ordersHistory)
   delivery: Delivery;
 
-  @Column()
+  @Column({ default: 'WAITING' })
   status: 'WAITING' | 'ONPREP' | 'PREP' | 'ONITSWAY' | 'RECEIVED' | 'CANCELLED';
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

@@ -21,7 +21,7 @@ export class Review {
   reviewer: Client;
 
   @ManyToOne(() => User, (user) => user.reviewsHistory)
-  reviewedBy: User;
+  reviewed: User;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;

@@ -10,7 +10,7 @@ export class Client {
   id: string;
 
   @OneToMany(() => Order, (order) => order.client)
-  ordersHistory: Array<Order>[];
+  ordersHistory: Order[];
 
   @OneToMany(() => Review, (review) => review.reviewer)
   reviewsMade: Array<Review>;
