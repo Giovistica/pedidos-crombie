@@ -15,13 +15,10 @@ import { CreateOrderDto } from './dto/createOrderDto';
 import { direccionDto } from 'src/direccion/dto/direccionDto';
 import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
-import { EatablesService } from 'src/eatables/eatables.service';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(
-    private orderService: OrdersService,
-  ) {}
+  constructor(private orderService: OrdersService) {}
 
   @Post('')
   async createOrder(@Body() order: CreateOrderDto) {

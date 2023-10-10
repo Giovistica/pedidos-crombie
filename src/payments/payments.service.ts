@@ -10,8 +10,8 @@ export class PaymentsService {
     @InjectRepository(Payment) private paymentRespository: Repository<Payment>,
   ) {}
 
-  createPayment() {
-    const newPayment = this.paymentRespository.create();
+  async createPayment() {
+    const newPayment = await this.paymentRespository.create();
     return this.paymentRespository.save(newPayment);
   }
   getPayments() {
@@ -27,7 +27,7 @@ export class PaymentsService {
   deletePayment(id: string) {
     return this.paymentRespository.delete(id);
   }
-  updatePayment(id: string, order: UpdatePaymentDto) {
-    return this.paymentRespository.update({ id }, order);
+  async updatePayment(id: string, order: UpdatePaymentDto) {
+    return await this.paymentRespository.update({ id }, order);
   }
 }

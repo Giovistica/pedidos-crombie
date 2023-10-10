@@ -12,6 +12,7 @@ import { DeliverysService } from 'src/deliverys/deliverys.service';
 import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesService } from 'src/eatables/eatables.service';
+import { PaymentsService } from 'src/payments/payments.service';
 
 @Injectable()
 export class OrdersService {
@@ -22,6 +23,7 @@ export class OrdersService {
     private direccionService: DireccionService,
     private deliveryService: DeliverysService,
     private eatableService: EatablesService,
+    private paymentService: PaymentsService,
   ) {}
 
   async createOrder(order: CreateOrderDto) {
@@ -30,8 +32,12 @@ export class OrdersService {
       order.restaurantId,
     );
     const newOrder = this.orderRespository.create();
+    const newPayment = await this.paymentService.createPayment();
+
     newOrder.client = foundClient;
     newOrder.restaurant = foundRestaurant;
+    newOrder.payment = newPayment;
+
     return await this.orderRespository.save(newOrder);
   }
   getOrders() {
@@ -65,8 +71,9 @@ export class OrdersService {
     return await this.orderRespository.update({ id }, status);
   }
   async orderEatableAdded(order: Order, idEatable: string) {
-    const eatableFound = await this.eatableService.getEatableById(idEatable);
-  
+    const eatableFound: Eatable =
+      await this.eatableService.getEatableById(idEatable);
+
     order.menuList.push(eatableFound);
     const newOrder = this.orderRespository.save(order);
     return newOrder;

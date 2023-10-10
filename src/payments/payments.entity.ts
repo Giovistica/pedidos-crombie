@@ -9,7 +9,7 @@ export class Payment {
   @Column({ default: 'ONWAIT' })
   status: 'PAYED' | 'REJECTED' | 'ONWAIT ';
 
-  @Column()
+  @Column({ default: 'CASH' })
   type: 'DEBIT' | 'CASH';
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

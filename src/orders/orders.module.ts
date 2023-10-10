@@ -13,6 +13,8 @@ import { Delivery } from 'src/deliverys/deliverys.entity';
 import { DeliverysModule } from 'src/deliverys/deliverys.module';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesModule } from 'src/eatables/eatables.module';
+import { Payment } from 'src/payments/payments.entity';
+import { PaymentsModule } from 'src/payments/payments.module';
 
 @Module({
   imports: [
@@ -23,12 +25,14 @@ import { EatablesModule } from 'src/eatables/eatables.module';
       Direccion,
       Delivery,
       Eatable,
+      Payment,
     ]),
     ClientsModule,
     RestaurantsModule,
     DireccionModule,
     DeliverysModule,
     EatablesModule,
+    PaymentsModule,
   ],
   providers: [OrdersService],
   controllers: [OrdersController],
