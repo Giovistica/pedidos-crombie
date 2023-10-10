@@ -19,8 +19,8 @@ export class DeliverysService {
     return this.deliveryRespository.find();
   }
 
-  getDeliveryById(id: string) {
-    return this.deliveryRespository.findOne({
+  async getDeliveryById(id: string) {
+    return await this.deliveryRespository.findOne({
       where: { id },
     });
   }

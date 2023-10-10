@@ -52,10 +52,11 @@ export class EatablesService {
     });
   }
 
-  getEatableById(idEatable: string) {
-    return this.eatableRespository.findOne({
+  async getEatableById(idEatable: string) {
+    const eatable = await this.eatableRespository.findOne({
       where: { idEatable },
     });
+    return eatable;
   }
 
   deleteEatable(idEatable: string) {

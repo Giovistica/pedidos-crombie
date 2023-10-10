@@ -2,12 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Order } from './orders.entity';
 import { Repository } from 'typeorm';
-import { UpdateOrderDto } from './dto/updeteOrderDto';
+import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
 import { ClientsService } from 'src/clients/clients.service';
 import { CreateOrderDto } from './dto/createOrderDto';
 import { RestaurantsService } from 'src/restaurants/restaurants.service';
 import { direccionDto } from 'src/direccion/dto/direccionDto';
 import { DireccionService } from 'src/direccion/direccion.service';
+import { DeliverysService } from 'src/deliverys/deliverys.service';
+import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
+import { Eatable } from 'src/eatables/eatables.entity';
+import { EatablesService } from 'src/eatables/eatables.service';
 
 @Injectable()
 export class OrdersService {
@@ -16,6 +20,8 @@ export class OrdersService {
     private clientService: ClientsService,
     private restaurantService: RestaurantsService,
     private direccionService: DireccionService,
+    private deliveryService: DeliverysService,
+    private eatableService: EatablesService,
   ) {}
 
   async createOrder(order: CreateOrderDto) {
@@ -47,7 +53,22 @@ export class OrdersService {
     return this.orderRespository.save(order);
   }
 
-  updateOrder(id: string, order: UpdateOrderDto) {
-    return this.orderRespository.update({ id }, order);
+  async updateOrderDelivery(order: Order, delivery: UpdateOrderDeliveryDto) {
+    const deliveryFound = await this.deliveryService.getDeliveryById(
+      delivery.idDelivery,
+    );
+    order.delivery = deliveryFound;
+    return this.orderRespository.save(order);
+  }
+
+  async updateOrderStatus(id: string, status: UpdateOrderStatusDto) {
+    return await this.orderRespository.update({ id }, status);
+  }
+  async orderEatableAdded(order: Order, idEatable: string) {
+    const eatableFound = await this.eatableService.getEatableById(idEatable);
+  
+    order.menuList.push(eatableFound);
+    const newOrder = this.orderRespository.save(order);
+    return newOrder;
   }
 }

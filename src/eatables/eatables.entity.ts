@@ -1,13 +1,5 @@
-import { Order } from 'src/orders/orders.entity';
 import { Restaurant } from 'src/restaurants/restaurants.entity';
-import {
-  Entity,
-  Column,
-  PrimaryColumn,
-  Generated,
-  ManyToOne,
-  ManyToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryColumn, Generated, ManyToOne } from 'typeorm';
 @Entity()
 export class Eatable {
   @PrimaryColumn()
@@ -31,9 +23,6 @@ export class Eatable {
 
   @Column()
   type: string;
-
-  @ManyToMany(() => Order, (order) => order.yummy)
-  orders: Array<Order>;
 
   @Column()
   menuType: 'SALTY' | 'SWEET' | 'BEBERAGE';

@@ -22,24 +22,24 @@ export class EatablesController {
   ) {
     return this.eatableService.createEatable(newEatable, id);
   }
-  //   @Get(':id')
-  //   async getEatableById(@Param('id') id: string) {
-  //     const eatableFound = await this.eatableService.getEatableById(id);
-  //     if (!eatableFound) {
-  //       throw new HttpException('Direccion does not exist', HttpStatus.NOT_FOUND);
-  //     }
-  //     return eatableFound;
-  //   }
+  @Get(':id')
+  async getEatableById(@Param('id') id: string) {
+    const eatableFound = await this.eatableService.getEatableById(id);
+    if (!eatableFound) {
+      throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
+    }
+    return eatableFound;
+  }
 
-  //   @Get('')
-  //   async getEatableByMenuType(@Query() eatable: FindEatableDto) {
-  //     const eatableFound =
-  //       await this.eatableService.getEatableByMenuType(eatable);
-  //     if (eatableFound.length == 0) {
-  //       throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
-  //     }
-  //     return eatableFound;
+  // @Get('')
+  // async getEatableByMenuType(@Query() eatable: FindEatableDto) {
+  //   const eatableFound =
+  //     await this.eatableService.getEatableByMenuType(eatable);
+  //   if (eatableFound.length == 0) {
+  //     throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
   //   }
+  //   return eatableFound;
+  // }
 
   @Get()
   getAllEatables() {

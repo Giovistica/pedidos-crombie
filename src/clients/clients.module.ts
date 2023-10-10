@@ -6,7 +6,6 @@ import { ClientsController } from './clients.controller';
 import { Order } from 'src/orders/orders.entity';
 import { RestaurantsModule } from 'src/restaurants/restaurants.module';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([Client, Order]), RestaurantsModule],
   providers: [ClientsService],

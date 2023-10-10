@@ -23,9 +23,9 @@ export class Order {
   @Generated('uuid')
   id: string;
 
-  @ManyToMany(() => Eatable, (eatable) => eatable.orders)
+  @ManyToMany(() => Eatable, { eager: true })
   @JoinTable()
-  yummy: Array<Eatable>;
+  menuList: Eatable[];
 
   @Column({ default: 0 })
   totalPrice: number;

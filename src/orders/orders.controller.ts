@@ -8,17 +8,19 @@ import {
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/createOrderDto';
-import { DireccionService } from 'src/direccion/direccion.service';
 import { direccionDto } from 'src/direccion/dto/direccionDto';
+import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
+import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
+import { EatablesService } from 'src/eatables/eatables.service';
 
 @Controller('orders')
 export class OrdersController {
   constructor(
     private orderService: OrdersService,
-    private direccionService: DireccionService,
   ) {}
 
   @Post('')
@@ -49,8 +51,8 @@ export class OrdersController {
     return result;
   }
 
-  @Patch(':id')
-  async updateOrderDireccion(
+  @Patch(':id/direccion')
+  async updateOrderDelivery(
     @Param('id') id: string,
     @Body() direccion: direccionDto,
   ) {
@@ -59,5 +61,47 @@ export class OrdersController {
       throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
     }
     return this.orderService.updateOrderDireccion(orderFound, direccion);
+  }
+
+  @Patch(':id/delivery')
+  async updateOrderDireccion(
+    @Param('id') id: string,
+    @Body() idDelivery: UpdateOrderDeliveryDto,
+  ) {
+    const orderFound = await this.orderService.getOrderById(id);
+    if (!orderFound) {
+      throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
+    }
+    return this.orderService.updateOrderDelivery(orderFound, idDelivery);
+  }
+  @Patch(':id/status')
+  async updateOrderStatus(
+    @Param('id') id: string,
+    @Body() status: UpdateOrderStatusDto,
+  ) {
+    const orderFound = await this.orderService.getOrderById(id);
+    if (!orderFound) {
+      throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
+    }
+    const orderUpdated = await this.orderService.updateOrderStatus(id, status);
+    if (orderUpdated.affected === 1) {
+      throw new HttpException('Status updated!', HttpStatus.CREATED);
+    }
+  }
+
+  @Patch(':id/eatable')
+  async addEatableToOrder(
+    @Param('id') idOrder: string,
+    @Query('idEatable') idEatable: string,
+  ) {
+    const orderFound = await this.orderService.getOrderById(idOrder);
+    if (!orderFound) {
+      throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
+    }
+    const orderEatableAdded = await this.orderService.orderEatableAdded(
+      orderFound,
+      idEatable,
+    );
+    return orderEatableAdded;
   }
 }
