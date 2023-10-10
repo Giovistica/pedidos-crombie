@@ -95,10 +95,27 @@ export class OrdersController {
     if (!orderFound) {
       throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
     }
-    const orderEatableAdded = await this.orderService.orderEatableAdded(
+    const orderEatableAdded = await this.orderService.orderEatableAdd(
       orderFound,
       idEatable,
     );
+    
     return orderEatableAdded;
+  }
+  @Delete(':id/eatable')
+  async deleteEatableToOrder(
+    @Param('id') idOrder: string,
+    @Query('idEatable') idEatable: string,
+  ) {
+    const orderFound = await this.orderService.getOrderById(idOrder);
+    if (!orderFound) {
+      throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
+    }
+    const orderEatableRemoved = await this.orderService.orderEatableAdd(
+      orderFound,
+      idEatable,
+    );
+    
+    return orderEatableRemoved;
   }
 }

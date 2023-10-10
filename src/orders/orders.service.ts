@@ -70,12 +70,34 @@ export class OrdersService {
   async updateOrderStatus(id: string, status: UpdateOrderStatusDto) {
     return await this.orderRespository.update({ id }, status);
   }
-  async orderEatableAdded(order: Order, idEatable: string) {
+  async orderEatableAdd(order: Order, idEatable: string) {
     const eatableFound: Eatable =
       await this.eatableService.getEatableById(idEatable);
 
     order.menuList.push(eatableFound);
+
+    order.totalPrice = this.caculatedPrice(order);
     const newOrder = this.orderRespository.save(order);
     return newOrder;
+  }
+  async orderEatableRemove(order: Order, idEatable: string) {
+    const eatableFound: Eatable =
+      await this.eatableService.getEatableById(idEatable);
+
+    order.menuList = order.menuList.filter(
+      (eatable) => eatable.idEatable !== eatableFound.idEatable,
+    );
+
+    order.totalPrice = this.caculatedPrice(order);
+    const newOrder = this.orderRespository.save(order);
+    return newOrder;
+  }
+
+  caculatedPrice(order: Order) {
+    let totalPrice = 0;
+    order.menuList.forEach((eatable) => {
+      totalPrice += eatable.price;
+    });
+    return totalPrice;
   }
 }
