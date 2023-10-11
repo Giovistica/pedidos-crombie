@@ -8,12 +8,14 @@ import {
   Patch,
   HttpException,
   HttpStatus,
+  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
 import { direccionDto } from 'src/direccion/dto/direccionDto';
 import { DireccionService } from 'src/direccion/direccion.service';
+import { findCityDto } from 'src/direccion/dto/findCityDto';
 
 @Controller('users')
 export class UsersController {
@@ -54,6 +56,10 @@ export class UsersController {
       throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
     }
     return userFound;
+  }
+  @Get('restaurants/city')
+  async getRestaurantsInCity(@Query('') city: findCityDto) {
+    return this.userService.getUserRestaurantInCity(city);
   }
 
   @Delete(':id')

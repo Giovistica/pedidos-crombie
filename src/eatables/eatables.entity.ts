@@ -7,7 +7,7 @@ export class Eatable {
   idEatable: string;
 
   @Column()
-  name: string;
+  title: string;
 
   @Column()
   description: string;
@@ -22,7 +22,7 @@ export class Eatable {
   price: number;
 
   @Column()
-  type: string;
+  name: string;
 
   @Column()
   menuType: 'SALTY' | 'SWEET' | 'BEBERAGE';

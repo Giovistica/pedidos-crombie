@@ -9,6 +9,7 @@ import { RestaurantsService } from 'src/restaurants/restaurants.service';
 import { DeliverysService } from 'src/deliverys/deliverys.service';
 import { DireccionService } from 'src/direccion/direccion.service';
 import { direccionDto } from 'src/direccion/dto/direccionDto';
+import { findCityDto } from 'src/direccion/dto/findCityDto';
 
 @Injectable()
 export class UsersService {
@@ -48,10 +49,26 @@ export class UsersService {
       },
     });
   }
+  async getUserByRole(role: 'CLIENT' | 'DELIVERY' | 'RESTAURANT') {
+    return await this.userRespository.find({
+      where: {
+        role,
+      },
+    });
+  }
   getUserById(userId: string) {
     return this.userRespository.findOne({
       where: { userId },
     });
+  }
+
+  async getUserRestaurantInCity(city: findCityDto) {
+    const usersFound = await this.getUserByRole('RESTAURANT');
+    const userByAdress = usersFound
+      .filter((user) => user.adress.country === city.city)
+      .filter((user) => user.adress.state === city.state)
+      .filter((user) => user.adress.city === city.country);
+    return userByAdress;
   }
 
   deleteUser(id: string) {

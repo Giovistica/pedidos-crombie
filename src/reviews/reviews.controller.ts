@@ -38,7 +38,7 @@ export class ReviewsController {
   }
 
   @Get(':id')
-  getAll30Reviews(@Param('id')id: string) {
+  getAll30Reviews(@Param('id') id: string) {
     return this.reviewService.getReviewsByUser(id);
   }
 

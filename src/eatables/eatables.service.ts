@@ -31,7 +31,7 @@ export class EatablesService {
   getEatableByType(eatable: FindEatableDto) {
     return this.eatableRespository.find({
       where: {
-        type: eatable.type,
+        menuType: eatable.menuType,
       },
     });
   }

@@ -39,6 +39,8 @@ export class DireccionController {
     return direccionFound;
   }
 
+  
+
   @Get()
   getAllDirecciones() {
     return this.direccionService.getDirecciones();

@@ -38,7 +38,7 @@ export class User {
   @IsPhoneNumber()
   phoneNumber: string;
 
-  @OneToOne(() => Direccion)
+  @OneToOne(() => Direccion, { eager: true })
   @JoinColumn()
   adress: Direccion;
 
@@ -62,8 +62,7 @@ export class User {
   @JoinColumn()
   delivery: Delivery;
 
-  @OneToOne(() => Restaurant)
+  @OneToOne(() => Restaurant, { eager: true })
   @JoinColumn()
   restaurant: Restaurant;
-  user: Promise<Direccion | Direccion[]>;
 }

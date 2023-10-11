@@ -1,5 +1,5 @@
 export class CreateEatableDto {
-  name: string;
+  title: string;
 
   description: string;
 
@@ -7,6 +7,7 @@ export class CreateEatableDto {
 
   price: number;
 
-  type: string;
+  menuType: 'SALTY' | 'SWEET' | 'BEBERAGE';
 
+  name: string;
 }
