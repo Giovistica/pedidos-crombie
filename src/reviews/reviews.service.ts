@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from './reviews.entity';
 import { ClientsService } from 'src/clients/clients.service';
 import { UsersService } from 'src/users/users.service';
-import { User } from 'src/users/user.entity';
 
 @Injectable()
 export class ReviewsService {
@@ -54,5 +53,9 @@ export class ReviewsService {
   }
   async calculateAverage(id: string) {
     return this.userService.calculateAveragePunctuation(id);
+  }
+  async getReviewsByUser(id: string) {
+    const user = await this.userService.getUserById(id);
+    return user.reviewsHistory.slice(-30);
   }
 }
