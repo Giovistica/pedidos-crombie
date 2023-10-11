@@ -25,7 +25,4 @@ export class Delivery {
 
   @Column({ nullable: true })
   acount: string;
-
-  @Column({ default: 0 })
-  punctuation: number;
 }

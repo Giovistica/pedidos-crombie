@@ -62,6 +62,20 @@ export class UsersService {
     return this.userRespository.update({ userId }, user);
   }
 
+  async calculateAveragePunctuation(id: string) {
+    const newUser = await this.getUserById(id);
+
+    let average = 0;
+
+    newUser.reviewsHistory.forEach((review) => (average += review.punctuation));
+
+    newUser.averagePunctuation = average / newUser.reviewsHistory.length;
+
+    this.userRespository.save(newUser);
+
+    return id;
+  }
+
   async updateDireccion(direccion: direccionDto, id: string) {
     const userFound = await this.getUserById(id);
 

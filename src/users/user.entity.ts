@@ -45,13 +45,15 @@ export class User {
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @OneToMany(() => Review, (review) => review.reviewed)
+  @OneToMany(() => Review, (review) => review.reviewed, { eager: true })
   reviewsHistory: Array<Review>;
+
+  @Column()
+  averagePunctuation: number;
 
   @Column()
   role: 'CLIENT' | 'DELIVERY' | 'RESTAURANT';
 
-  //no andan la herencia ni nada
   @OneToOne(() => Client, { cascade: true })
   @JoinColumn()
   client: Client;

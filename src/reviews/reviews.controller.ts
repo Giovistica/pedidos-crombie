@@ -24,13 +24,13 @@ export class ReviewsController {
     @Query('idUser') idUser: string,
     @Body() createReviewDto: CreateReviewDto,
   ) {
-    console.log('client' + idClient);
-    console.log('user' + idUser);
-    return await this.reviewService.createReview(
+    const newReview = await this.reviewService.createReview(
       createReviewDto,
       idClient,
       idUser,
     );
+    this.reviewService.calculateAverage(idUser);
+    return await this.reviewService.getReviewById(newReview.id);
   }
   @Get()
   getAllReviews() {

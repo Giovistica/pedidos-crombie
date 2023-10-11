@@ -18,6 +18,4 @@ export class Restaurant {
   @Column({ nullable: true })
   acount: string;
 
-  @Column({ default: 0 })
-  punctuation: number;
 }
