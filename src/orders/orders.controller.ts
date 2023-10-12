@@ -15,6 +15,7 @@ import { CreateOrderDto } from './dto/createOrderDto';
 import { direccionDto } from 'src/direccion/dto/direccionDto';
 import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
+import { findCityDto } from 'src/direccion/dto/findCityDto';
 
 @Controller('orders')
 export class OrdersController {
@@ -27,6 +28,11 @@ export class OrdersController {
   @Get()
   getAllOrders() {
     return this.orderService.getOrders();
+  }
+
+  @Get('prep/city')
+  async getOrdersPrep(@Query() city: findCityDto) {
+    return await this.orderService.getOrdersOnPrep(city);
   }
 
   @Get(':id')

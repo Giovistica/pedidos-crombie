@@ -13,6 +13,7 @@ import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesService } from 'src/eatables/eatables.service';
 import { PaymentsService } from 'src/payments/payments.service';
+import { findCityDto } from 'src/direccion/dto/findCityDto';
 
 @Injectable()
 export class OrdersService {
@@ -99,5 +100,18 @@ export class OrdersService {
       totalPrice += eatable.price;
     });
     return totalPrice;
+  }
+  async getOrdersOnPrep(city: findCityDto) {
+    const orders = await this.orderRespository.find({
+      where: { status: 'PREP' },
+    });
+
+    const result = orders.filter(
+      (order) =>
+        order.adress.city == city.city &&
+        order.adress.country == city.country &&
+        order.adress.state == city.state,
+    );
+    return result;
   }
 }

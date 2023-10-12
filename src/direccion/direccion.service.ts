@@ -36,10 +36,7 @@ export class DireccionService {
         apartment: direccion.apartment,
       },
     });
-
-
   }
-
 
   getDireccionById(idDireccion: string) {
     return this.direccionRespository.findOne({
