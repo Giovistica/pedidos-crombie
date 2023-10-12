@@ -48,7 +48,7 @@ export class User {
   @OneToMany(() => Review, (review) => review.reviewed, { eager: true })
   reviewsHistory: Array<Review>;
 
-  @Column()
+  @Column({ default: 0 })
   averagePunctuation: number;
 
   @Column()

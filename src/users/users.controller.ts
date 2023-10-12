@@ -14,15 +14,11 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
 import { direccionDto } from 'src/direccion/dto/direccionDto';
-import { DireccionService } from 'src/direccion/direccion.service';
 import { findCityDto } from 'src/direccion/dto/findCityDto';
 
 @Controller('users')
 export class UsersController {
-  constructor(
-    private userService: UsersService,
-    private direccionService: DireccionService,
-  ) {}
+  constructor(private userService: UsersService) {}
 
   @Post()
   async createUser(@Body() newUser: CreateUserDto) {
@@ -59,6 +55,7 @@ export class UsersController {
   }
   @Get('restaurants/city')
   async getRestaurantsInCity(@Query('') city: findCityDto) {
+    console.log(city);
     return this.userService.getUserRestaurantInCity(city);
   }
 

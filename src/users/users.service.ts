@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './user.entity';
-import { Repository } from 'typeorm';
+import { IsNull, Repository } from 'typeorm';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
 import { ClientsService } from 'src/clients/clients.service';
@@ -37,6 +37,7 @@ export class UsersService {
       const newDelivery = await this.deliveryService.createDelivery();
       newUser.delivery = newDelivery;
     }
+
     return this.userRespository.save(newUser);
   }
   getUsers() {
@@ -64,10 +65,13 @@ export class UsersService {
 
   async getUserRestaurantInCity(city: findCityDto) {
     const usersFound = await this.getUserByRole('RESTAURANT');
+    
     const userByAdress = usersFound
-      .filter((user) => user.adress.country === city.city)
+      .filter((user) => user.adress !== null)
+      .filter((user) => user.adress.city === city.city)
       .filter((user) => user.adress.state === city.state)
-      .filter((user) => user.adress.city === city.country);
+      .filter((user) => user.adress.country === city.country);
+    
     return userByAdress;
   }
 
