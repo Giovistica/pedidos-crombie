@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsAlpha,
   IsEmail,
@@ -9,6 +10,7 @@ import {
 import { Roles } from 'src/enums/role.enum';
 
 export class CreateUserDto {
+  @Transform(({ value }) => value.trim())
   @IsString()
   @Length(8, 30)
   password: string;
@@ -16,10 +18,12 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
+  @Transform(({ value }) => value.trim())
   @IsAlpha()
   @Length(2, 25)
   name: string;
 
+  @Transform(({ value }) => value.trim())
   @IsAlpha()
   @Length(2, 25)
   lastName: string;

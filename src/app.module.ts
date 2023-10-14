@@ -25,13 +25,14 @@ import { Vehicle } from './vehicles/vehicles.entity';
 import { Adress } from './adress/adress.entity';
 import { ProfileReviewsModule } from './profileReviews/profileReviews.module';
 import { ProfileReviews } from './profileReviews/profileReviews.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: process.env.host,
       port: 3306,
       username: 'root',
       password: 'root',
@@ -63,6 +64,7 @@ import { ProfileReviews } from './profileReviews/profileReviews.entity';
     AdressModule,
     EatablesModule,
     ProfileReviewsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

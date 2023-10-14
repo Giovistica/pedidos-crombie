@@ -50,11 +50,9 @@ export class UsersService {
     });
     return dtos;
   }
-  getUserByEmail(user: CreateUserDto) {
-    return this.userRespository.findOne({
-      where: {
-        email: user.email,
-      },
+  getUserByEmail(email: string) {
+    return this.userRespository.findOneBy({
+      email,
     });
   }
   async getUserByRole(role: Roles) {

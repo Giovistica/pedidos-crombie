@@ -22,7 +22,7 @@ export class UsersController {
 
   @Post()
   async createUser(@Body() newUser: CreateUserDto, @Res() response: Response) {
-    const userFound = await this.userService.getUserByEmail(newUser);
+    const userFound = await this.userService.getUserByEmail(newUser.email);
 
     if (userFound) {
       throw new HttpException('User already exist', HttpStatus.CONFLICT);
@@ -32,7 +32,6 @@ export class UsersController {
   }
   @Get()
   getAllUsers() {
-  
     return this.userService.getUsers();
   }
 
