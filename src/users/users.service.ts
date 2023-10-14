@@ -6,8 +6,9 @@ import { ClientsService } from 'src/clients/clients.service';
 import { DeliverysService } from 'src/deliverys/deliverys.service';
 import { Repository } from 'typeorm';
 import { LocalsService } from 'src/locals/locals.service';
-import { AdressService } from 'src/adress/adress.service';
 import { Injectable } from '@nestjs/common';
+import { Roles } from 'src/enums/role.enum';
+import { UserCreatedDto } from './DTO/userCreatedDto';
 
 @Injectable()
 export class UsersService {
@@ -16,30 +17,34 @@ export class UsersService {
     private clientsService: ClientsService,
     private localService: LocalsService,
     private deliveryService: DeliverysService,
-    private adressService: AdressService,
   ) {}
 
   async createUser(user: CreateUserDto) {
     const newUser = this.userRespository.create(user);
 
-    if (user.role == 'CLIENT') {
+    if (user.role == Roles.CLIENT) {
       const newClient = await this.clientsService.createClient();
       newUser.client = newClient;
     }
-    if (user.role == 'LOCAL') {
+    if (user.role == Roles.LOCAL) {
       const newLocal = await this.localService.createLocal();
       newUser.local = newLocal;
     }
 
-    if (user.role == 'DELIVERY') {
+    if (user.role == Roles.DELIVERY) {
       const newDelivery = await this.deliveryService.createDelivery();
       newUser.delivery = newDelivery;
     }
+    this.userRespository.save(newUser);
 
-    return this.userRespository.save(newUser);
+    return await this.mapUserDto;
   }
-  getUsers() {
-    return this.userRespository.find();
+  async getUsers() {
+    const users = await this.userRespository.find();
+    const dtos = users.map((element) => {
+      this.mapUserDto(element);
+    });
+    return dtos;
   }
   getUserByEmail(user: CreateUserDto) {
     return this.userRespository.findOne({
@@ -48,7 +53,7 @@ export class UsersService {
       },
     });
   }
-  async getUserByRole(role: 'CLIENT' | 'DELIVERY' | 'LOCAL') {
+  async getUserByRole(role: Roles) {
     return await this.userRespository.find({
       where: {
         role,
@@ -67,5 +72,28 @@ export class UsersService {
 
   updateUser(userId: string, user: UpdateUserDto) {
     return this.userRespository.update({ userId }, user);
+  }
+
+  mapUserDto(user: User) {
+    const res = new UserCreatedDto();
+
+    res.email = user.email;
+    res.lastName = user.lastName;
+    res.name = user.name;
+    res.name = user.name;
+
+    if (user.role == Roles.CLIENT) {
+      res.role = Roles.CLIENT;
+      res.clientID = user.client.id;
+    }
+    if (user.role == Roles.DELIVERY) {
+      res.role = Roles.DELIVERY;
+      res.clientID = user.delivery.id;
+    }
+    if (user.role == Roles.LOCAL) {
+      res.role = Roles.LOCAL;
+      res.clientID = user.local.id;
+    }
+    return res;
   }
 }

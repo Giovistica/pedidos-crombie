@@ -8,42 +8,36 @@ import {
   Patch,
   HttpException,
   HttpStatus,
+  ParseUUIDPipe,
+  Res,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
+import { Response } from 'express';
 
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
 
   @Post()
-  async createUser(@Body() newUser: CreateUserDto) {
-    if (
-      newUser.role !== 'LOCAL' &&
-      newUser.role !== 'CLIENT' &&
-      newUser.role !== 'DELIVERY'
-    ) {
-      throw new HttpException(
-        'That role does not exist',
-        HttpStatus.BAD_REQUEST,
-      );
-    }
+  async createUser(@Body() newUser: CreateUserDto, @Res() response: Response) {
     const userFound = await this.userService.getUserByEmail(newUser);
 
     if (userFound) {
       throw new HttpException('User already exist', HttpStatus.CONFLICT);
     }
-    //deberia devolver un dto
-    return this.userService.createUser(newUser);
+    const user = await this.userService.createUser(newUser);
+    return response.status(201).json(user);
   }
   @Get()
   getAllUsers() {
+    //deberia mapear users
     return this.userService.getUsers();
   }
 
   @Get(':id')
-  async getUser(@Param('id') id: string) {
+  async getUser(@Param('id', new ParseUUIDPipe()) id: string) {
     const userFound = await this.userService.getUserById(id);
     if (!userFound) {
       throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
@@ -52,7 +46,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async deleteUser(@Param('id') id: string) {
+  async deleteUser(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.userService.deleteUser(id);
 
     if (result.affected === 0) {
@@ -62,7 +56,10 @@ export class UsersController {
   }
 
   @Patch(':id')
-  async updateUser(@Param('id') id: string, @Body() user: UpdateUserDto) {
+  async updateUser(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() user: UpdateUserDto,
+  ) {
     const userFound = await this.userService.getUserById(id);
 
     if (!userFound) {

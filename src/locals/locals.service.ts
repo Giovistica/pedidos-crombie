@@ -6,6 +6,7 @@ import { UpdateLocalDto } from './dto/updateLocalDto';
 import { findCityDto } from 'src/adress/dto/findCityDto';
 import { AdressService } from 'src/adress/adress.service';
 import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
+import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
 
 @Injectable()
 export class LocalsService {
@@ -13,11 +14,14 @@ export class LocalsService {
     @InjectRepository(Local)
     private localRespository: Repository<Local>,
     private adressService: AdressService,
+    private profileReviewsService: ProfileReviewsService,
   ) {}
 
-  createLocal() {
+  async createLocal() {
     const newLocal = this.localRespository.create();
-    return this.localRespository.save(newLocal);
+    const newProfile = await this.profileReviewsService.createProfileReviews();
+    newLocal.profileReviews = newProfile;
+    return await this.localRespository.save(newLocal);
   }
   getLocals() {
     return this.localRespository.find();

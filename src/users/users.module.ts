@@ -11,9 +11,21 @@ import { LocalsService } from 'src/locals/locals.service';
 import { Local } from 'src/locals/locals.entity';
 import { Adress } from 'src/adress/adress.entity';
 import { AdressService } from 'src/adress/adress.service';
+import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
+import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Client, Local, Delivery, Adress])],
+  imports: [
+    TypeOrmModule.forFeature([
+      User,
+      Client,
+      Local,
+      Delivery,
+      Adress,
+      LocalsService,
+      ProfileReviews,
+    ]),
+  ],
   controllers: [UsersController],
   providers: [
     UsersService,
@@ -21,6 +33,8 @@ import { AdressService } from 'src/adress/adress.service';
     LocalsService,
     DeliverysService,
     AdressService,
+    LocalsService,
+    ProfileReviewsService,
   ],
   exports: [UsersService],
 })

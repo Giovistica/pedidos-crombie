@@ -1,6 +1,5 @@
 import { Client } from 'src/clients/client.entity';
 import { Delivery } from 'src/deliverys/deliverys.entity';
-import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
 import { Local } from 'src/locals/locals.entity';
 import {
   Column,
@@ -10,6 +9,7 @@ import {
   JoinColumn,
   Entity,
 } from 'typeorm';
+import { Roles } from 'src/enums/role.enum';
 
 @Entity()
 export class User {
@@ -18,11 +18,9 @@ export class User {
   userId: string;
 
   @Column()
-  @IsNotEmpty()
   password: string;
 
   @Column({ unique: true })
-  @IsEmail()
   email: string;
 
   @Column()
@@ -32,24 +30,23 @@ export class User {
   lastName: string;
 
   @Column()
-  @IsPhoneNumber()
   phoneNumber: string;
 
   @Column()
-  role: 'CLIENT' | 'DELIVERY' | 'LOCAL';
+  role: Roles;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
 
-  @OneToOne(() => Client, { cascade: true })
+  @OneToOne(() => Client, { eager: true, cascade: true })
   @JoinColumn()
   client: Client;
 
-  @OneToOne(() => Delivery)
+  @OneToOne(() => Delivery, { eager: true, cascade: true })
   @JoinColumn()
   delivery: Delivery;
 
-  @OneToOne(() => Local, { eager: true })
+  @OneToOne(() => Local, { eager: true, cascade: true })
   @JoinColumn()
   local: Local;
 }

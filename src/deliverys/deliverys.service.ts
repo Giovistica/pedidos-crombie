@@ -2,17 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { Delivery } from './deliverys.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
 
 @Injectable()
 export class DeliverysService {
   constructor(
     @InjectRepository(Delivery)
     private deliveryRespository: Repository<Delivery>,
+    private profileReviewsService: ProfileReviewsService,
   ) {}
 
-  createDelivery() {
+  async createDelivery() {
     const newDelivery = this.deliveryRespository.create();
-    return this.deliveryRespository.save(newDelivery);
+    const newProfile = await this.profileReviewsService.createProfileReviews();
+    newDelivery.profileReviews = newProfile;
+    return await this.deliveryRespository.save(newDelivery);
   }
   getDeliverys() {
     return this.deliveryRespository.find();

@@ -19,7 +19,7 @@ export class Delivery {
   @OneToMany(() => Order, (order) => order.delivery)
   ordersHistory: Array<Order>[];
 
-  @OneToOne(() => ProfileReviews)
+  @OneToOne(() => ProfileReviews, { eager: true })
   @JoinColumn()
   profileReviews: ProfileReviews;
 
