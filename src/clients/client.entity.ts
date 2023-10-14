@@ -1,7 +1,15 @@
+import { Adress } from 'src/adress/adress.entity';
 import { Order } from 'src/orders/orders.entity';
 import { Review } from 'src/reviews/reviews.entity';
 
-import { Entity, Column, OneToMany, PrimaryColumn, Generated } from 'typeorm';
+import {
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  Generated,
+  OneToOne,
+  JoinColumn,
+} from 'typeorm';
 
 @Entity()
 export class Client {
@@ -15,6 +23,7 @@ export class Client {
   @OneToMany(() => Review, (review) => review.reviewer)
   reviewsMade: Array<Review>;
 
-  @Column({ nullable: true })
-  datosTarjeta: string;
+  @OneToOne(() => Adress, { eager: true })
+  @JoinColumn()
+  adress: Adress;
 }

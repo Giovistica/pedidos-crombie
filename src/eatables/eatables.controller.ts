@@ -6,10 +6,12 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  Patch,
   Post,
 } from '@nestjs/common';
 import { EatablesService } from './eatables.service';
 import { CreateEatableDto } from './dto/createEatableDto';
+import { UpdateEatableDto } from './dto/updateEatableDto';
 
 @Controller('eatables')
 export class EatablesController {
@@ -51,8 +53,21 @@ export class EatablesController {
     const result = await this.eatableService.deleteEatable(id);
 
     if (result.affected === 0) {
-      throw new HttpException('Direccion does not exist', HttpStatus.NOT_FOUND);
+      throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
     }
     return result;
+  }
+
+  @Patch(':id')
+  async updateClient(
+    @Param('id') id: string,
+    @Body() eatable: UpdateEatableDto,
+  ) {
+    const eatableFound = await this.eatableService.getEatableById(id);
+
+    if (!eatableFound) {
+      throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
+    }
+    return this.eatableService.updateEatable(id, eatable);
   }
 }

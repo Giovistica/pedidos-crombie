@@ -5,31 +5,31 @@ import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { Client } from 'src/clients/client.entity';
 import { ClientsModule } from 'src/clients/clients.module';
-import { Restaurant } from 'src/restaurants/restaurants.entity';
-import { RestaurantsModule } from 'src/restaurants/restaurants.module';
-import { Direccion } from 'src/direccion/direccion.entity';
-import { DireccionModule } from 'src/direccion/direccion.module';
+import { LocalsModule } from 'src/locals/locals.module';
+import { Adress } from 'src/adress/adress.entity';
+import { AdressModule } from 'src/adress/adress.module';
 import { Delivery } from 'src/deliverys/deliverys.entity';
 import { DeliverysModule } from 'src/deliverys/deliverys.module';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesModule } from 'src/eatables/eatables.module';
 import { Payment } from 'src/payments/payments.entity';
 import { PaymentsModule } from 'src/payments/payments.module';
+import { Local } from 'src/locals/locals.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       Order,
       Client,
-      Restaurant,
-      Direccion,
+      Local,
+      Adress,
       Delivery,
       Eatable,
       Payment,
     ]),
     ClientsModule,
-    RestaurantsModule,
-    DireccionModule,
+    LocalsModule,
+    AdressModule,
     DeliverysModule,
     EatablesModule,
     PaymentsModule,

@@ -5,23 +5,23 @@ import { Repository } from 'typeorm';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
 import { ClientsService } from 'src/clients/clients.service';
 import { CreateOrderDto } from './dto/createOrderDto';
-import { RestaurantsService } from 'src/restaurants/restaurants.service';
-import { direccionDto } from 'src/direccion/dto/direccionDto';
-import { DireccionService } from 'src/direccion/direccion.service';
 import { DeliverysService } from 'src/deliverys/deliverys.service';
 import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesService } from 'src/eatables/eatables.service';
 import { PaymentsService } from 'src/payments/payments.service';
-import { findCityDto } from 'src/direccion/dto/findCityDto';
+import { findCityDto } from 'src/adress/dto/findCityDto';
+import { AdressService } from 'src/adress/adress.service';
+import { LocalsService } from 'src/locals/locals.service';
+import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(Order) private orderRespository: Repository<Order>,
     private clientService: ClientsService,
-    private restaurantService: RestaurantsService,
-    private direccionService: DireccionService,
+    private localService: LocalsService,
+    private adressService: AdressService,
     private deliveryService: DeliverysService,
     private eatableService: EatablesService,
     private paymentService: PaymentsService,
@@ -29,14 +29,14 @@ export class OrdersService {
 
   async createOrder(order: CreateOrderDto) {
     const foundClient = await this.clientService.getClientById(order.clientId);
-    const foundRestaurant = await this.restaurantService.getRestaurantById(
+    const foundRestaurant = await this.localService.getLocalById(
       order.restaurantId,
     );
     const newOrder = this.orderRespository.create();
     const newPayment = await this.paymentService.createPayment();
 
     newOrder.client = foundClient;
-    newOrder.restaurant = foundRestaurant;
+    newOrder.local = foundRestaurant;
     newOrder.payment = newPayment;
 
     return await this.orderRespository.save(newOrder);
@@ -54,9 +54,9 @@ export class OrdersService {
   deleteOrder(id: string) {
     return this.orderRespository.delete(id);
   }
-  async updateOrderDireccion(order: Order, direccion: direccionDto) {
-    const newDireccion = await this.direccionService.createDireccion(direccion);
-    order.adress = newDireccion;
+  async updateOrderAdress(order: Order, adress: CreateAdressDto) {
+    const newAdress = await this.adressService.createAdress(adress);
+    order.adress = newAdress;
     return this.orderRespository.save(order);
   }
 

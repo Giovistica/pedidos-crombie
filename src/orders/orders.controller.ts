@@ -12,10 +12,10 @@ import {
 } from '@nestjs/common';
 import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/createOrderDto';
-import { direccionDto } from 'src/direccion/dto/direccionDto';
 import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
-import { findCityDto } from 'src/direccion/dto/findCityDto';
+import { findCityDto } from 'src/adress/dto/findCityDto';
+import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
 
 @Controller('orders')
 export class OrdersController {
@@ -54,20 +54,20 @@ export class OrdersController {
     return result;
   }
 
-  @Patch(':id/direccion')
-  async updateOrderDelivery(
+  @Patch(':id/adress')
+  async updateOrderAdress(
     @Param('id') id: string,
-    @Body() direccion: direccionDto,
+    @Body() adress: CreateAdressDto,
   ) {
     const orderFound = await this.orderService.getOrderById(id);
     if (!orderFound) {
       throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
     }
-    return this.orderService.updateOrderDireccion(orderFound, direccion);
+    return this.orderService.updateOrderAdress(orderFound, adress);
   }
 
   @Patch(':id/delivery')
-  async updateOrderDireccion(
+  async updateOrderDelivery(
     @Param('id') id: string,
     @Body() idDelivery: UpdateOrderDeliveryDto,
   ) {

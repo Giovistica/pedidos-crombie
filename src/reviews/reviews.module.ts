@@ -5,14 +5,14 @@ import { ReviewsService } from './reviews.service';
 import { ReviewsController } from './reviews.controller';
 import { Client } from 'src/clients/client.entity';
 import { ClientsModule } from 'src/clients/clients.module';
-import { User } from 'src/users/user.entity';
-import { UsersModule } from 'src/users/users.module';
+import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
+import { ProfileReviewsModule } from 'src/profileReviews/profileReviews.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Review, Client, User]),
+    TypeOrmModule.forFeature([Review, Client, ProfileReviews]),
     ClientsModule,
-    UsersModule,
+    ProfileReviewsModule,
   ],
   providers: [ReviewsService],
   controllers: [ReviewsController],

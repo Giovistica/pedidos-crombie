@@ -1,40 +1,36 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateReviewDto } from './dto/createReviewDto';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Review } from './reviews.entity';
 import { ClientsService } from 'src/clients/clients.service';
-import { UsersService } from 'src/users/users.service';
+import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ReviewsService {
   constructor(
     @InjectRepository(Review) private reviewRespository: Repository<Review>,
     private clientService: ClientsService,
-    private userService: UsersService,
+    private profileReviewsService: ProfileReviewsService,
   ) {}
 
   async createReview(
     createReviewDto: CreateReviewDto,
     clientId: string,
-    userId: string,
+    Id: string,
   ) {
     const clientFound = await this.clientService.getClientById(clientId);
-    const userFound = await this.userService.getUserById(userId);
+    const profileFound =
+      await this.profileReviewsService.getProfileReviewsById(Id);
 
-    if (userFound.role === 'CLIENT') {
-      throw new HttpException(
-        'That user can not be reviewed',
-        HttpStatus.FORBIDDEN,
-      );
-    }
     const newReview = this.reviewRespository.create(createReviewDto);
 
     newReview.reviewer = clientFound;
-    newReview.reviewed = userFound;
+    newReview.reviewed = profileFound;
 
     return this.reviewRespository.save(newReview);
   }
+
   getReviews() {
     return this.reviewRespository.find();
   }
@@ -48,14 +44,12 @@ export class ReviewsService {
   deleteReview(id: string) {
     return this.reviewRespository.delete(id);
   }
-  async updateReview(id: string, review: CreateReviewDto) {
-    return await this.reviewRespository.update({ id }, review);
-  }
+
   async calculateAverage(id: string) {
-    return this.userService.calculateAveragePunctuation(id);
+    return this.profileReviewsService.calculateAveragePunctuation(id);
   }
-  async getReviewsByUser(id: string) {
-    const user = await this.userService.getUserById(id);
-    return user.reviewsHistory.slice(-30);
+  async getReviewsByProfileReviews(id: string) {
+    const profile = await this.profileReviewsService.getProfileReviewsById(id);
+    return profile.reviewsHistory.slice(-30);
   }
 }

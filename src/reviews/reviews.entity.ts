@@ -1,6 +1,6 @@
 import { Max, Min } from 'class-validator';
 import { Client } from 'src/clients/client.entity';
-import { User } from 'src/users/user.entity';
+import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 import { Column, Entity, Generated, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @Entity()
@@ -23,8 +23,8 @@ export class Review {
   @ManyToOne(() => Client, (client) => client.reviewsMade)
   reviewer: Client;
 
-  @ManyToOne(() => User, (user) => user.reviewsHistory)
-  reviewed: User;
+  @ManyToOne(() => ProfileReviews, (profile) => profile.reviewsHistory)
+  reviewed: ProfileReviews;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;

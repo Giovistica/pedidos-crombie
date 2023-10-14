@@ -1,18 +1,15 @@
 import { Client } from 'src/clients/client.entity';
 import { Delivery } from 'src/deliverys/deliverys.entity';
-import { Direccion } from 'src/direccion/direccion.entity';
-import { Restaurant } from 'src/restaurants/restaurants.entity';
-import { Review } from 'src/reviews/reviews.entity';
+import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
+import { Local } from 'src/locals/locals.entity';
 import {
   Column,
   PrimaryColumn,
   Generated,
   OneToOne,
   JoinColumn,
-  OneToMany,
   Entity,
 } from 'typeorm';
-import { IsEmail, IsNotEmpty, IsPhoneNumber } from 'class-validator';
 
 @Entity()
 export class User {
@@ -38,21 +35,11 @@ export class User {
   @IsPhoneNumber()
   phoneNumber: string;
 
-  @OneToOne(() => Direccion, { eager: true })
-  @JoinColumn()
-  adress: Direccion;
+  @Column()
+  role: 'CLIENT' | 'DELIVERY' | 'LOCAL';
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
-
-  @OneToMany(() => Review, (review) => review.reviewed, { eager: true })
-  reviewsHistory: Array<Review>;
-
-  @Column({ default: 0 })
-  averagePunctuation: number;
-
-  @Column()
-  role: 'CLIENT' | 'DELIVERY' | 'RESTAURANT';
 
   @OneToOne(() => Client, { cascade: true })
   @JoinColumn()
@@ -62,7 +49,7 @@ export class User {
   @JoinColumn()
   delivery: Delivery;
 
-  @OneToOne(() => Restaurant, { eager: true })
+  @OneToOne(() => Local, { eager: true })
   @JoinColumn()
-  restaurant: Restaurant;
+  local: Local;
 }

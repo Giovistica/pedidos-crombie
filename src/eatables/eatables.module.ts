@@ -3,15 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Eatable } from './eatables.entity';
 import { EatablesService } from './eatables.service';
 import { EatablesController } from './eatables.controller';
-import { RestaurantsModule } from 'src/restaurants/restaurants.module';
-import { Restaurant } from 'src/restaurants/restaurants.entity';
+import { LocalsModule } from 'src/locals/locals.module';
 import { Order } from 'src/orders/orders.entity';
+import { Local } from 'src/locals/locals.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Eatable, Restaurant, Order]),
-    RestaurantsModule,
-  ],
+  imports: [TypeOrmModule.forFeature([Eatable, Local, Order]), LocalsModule],
   providers: [EatablesService],
   controllers: [EatablesController],
   exports: [EatablesService],

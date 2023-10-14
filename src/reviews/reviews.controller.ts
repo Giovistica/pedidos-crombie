@@ -6,7 +6,6 @@ import {
   HttpException,
   HttpStatus,
   Param,
-  Patch,
   Post,
   Query,
 } from '@nestjs/common';
@@ -39,7 +38,7 @@ export class ReviewsController {
 
   @Get(':id')
   getAll30Reviews(@Param('id') id: string) {
-    return this.reviewService.getReviewsByUser(id);
+    return this.reviewService.getReviewsByProfileReviews(id);
   }
 
   @Get(':id')
@@ -59,15 +58,5 @@ export class ReviewsController {
       throw new HttpException('Review does not exist', HttpStatus.NOT_FOUND);
     }
     return result;
-  }
-
-  @Patch(':id')
-  async updateReview(@Param('id') id: string, @Body() client: CreateReviewDto) {
-    const reviewFound = await this.reviewService.getReviewById(id);
-
-    if (!reviewFound) {
-      throw new HttpException('Client does not exist', HttpStatus.NOT_FOUND);
-    }
-    return this.reviewService.updateReview(id, client);
   }
 }

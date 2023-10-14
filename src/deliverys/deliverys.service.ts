@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { Delivery } from './deliverys.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UpdateDeliveryDto } from './dto/updateDelivey.dto';
 
 @Injectable()
 export class DeliverysService {
@@ -27,8 +26,5 @@ export class DeliverysService {
 
   deleteDelivery(id: string) {
     return this.deliveryRespository.delete(id);
-  }
-  updateDelivery(id: string, delivery: UpdateDeliveryDto) {
-    return this.deliveryRespository.update({ id }, delivery);
   }
 }

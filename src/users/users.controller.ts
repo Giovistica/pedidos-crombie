@@ -8,13 +8,10 @@ import {
   Patch,
   HttpException,
   HttpStatus,
-  Query,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
-import { direccionDto } from 'src/direccion/dto/direccionDto';
-import { findCityDto } from 'src/direccion/dto/findCityDto';
 
 @Controller('users')
 export class UsersController {
@@ -23,7 +20,7 @@ export class UsersController {
   @Post()
   async createUser(@Body() newUser: CreateUserDto) {
     if (
-      newUser.role !== 'RESTAURANT' &&
+      newUser.role !== 'LOCAL' &&
       newUser.role !== 'CLIENT' &&
       newUser.role !== 'DELIVERY'
     ) {
@@ -37,7 +34,7 @@ export class UsersController {
     if (userFound) {
       throw new HttpException('User already exist', HttpStatus.CONFLICT);
     }
-
+    //deberia devolver un dto
     return this.userService.createUser(newUser);
   }
   @Get()
@@ -53,11 +50,6 @@ export class UsersController {
     }
     return userFound;
   }
-  @Get('restaurants/city')
-  async getRestaurantsInCity(@Query('') city: findCityDto) {
-    console.log(city);
-    return this.userService.getUserRestaurantInCity(city);
-  }
 
   @Delete(':id')
   async deleteUser(@Param('id') id: string) {
@@ -67,13 +59,6 @@ export class UsersController {
       throw new HttpException('User does not exist', HttpStatus.NOT_FOUND);
     }
     return result;
-  }
-  @Patch('/direccion/:id')
-  async updateDirección(
-    @Param('id') id: string,
-    @Body() direccion: direccionDto,
-  ) {
-    return this.userService.updateDireccion(direccion, id);
   }
 
   @Patch(':id')

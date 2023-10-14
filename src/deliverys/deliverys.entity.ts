@@ -1,7 +1,7 @@
 import { Order } from 'src/orders/orders.entity';
+import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 import { Vehicle } from 'src/vehicles/vehicles.entity';
 import {
-  Column,
   Entity,
   OneToMany,
   OneToOne,
@@ -19,10 +19,11 @@ export class Delivery {
   @OneToMany(() => Order, (order) => order.delivery)
   ordersHistory: Array<Order>[];
 
+  @OneToOne(() => ProfileReviews)
+  @JoinColumn()
+  profileReviews: ProfileReviews;
+
   @OneToOne(() => Vehicle)
   @JoinColumn()
   vehicle: Vehicle;
-
-  @Column({ nullable: true })
-  acount: string;
 }

@@ -1,6 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 
-export class direccionDto {
+export class CreateAdressDto {
   @IsNotEmpty()
   country: string;
 
@@ -8,10 +8,10 @@ export class direccionDto {
   state: string;
 
   @IsNotEmpty()
-  CP: string;
-
-  @IsNotEmpty()
   city: string;
+  
+  @IsNotEmpty()
+  CP: string;
 
   @IsNotEmpty()
   street: string;

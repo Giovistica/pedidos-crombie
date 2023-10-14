@@ -4,20 +4,21 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateEatableDto } from './dto/createEatableDto';
 import { FindEatableDto } from './dto/findEatableDto';
-import { RestaurantsService } from 'src/restaurants/restaurants.service';
+import { LocalsService } from 'src/locals/locals.service';
+import { UpdateEatableDto } from './dto/updateEatableDto';
 
 @Injectable()
 export class EatablesService {
   constructor(
     @InjectRepository(Eatable)
     private eatableRespository: Repository<Eatable>,
-    private restaurantService: RestaurantsService,
+    private localService: LocalsService,
   ) {}
 
   async createEatable(eatable: CreateEatableDto, id: string) {
-    const foundRestaurant = await this.restaurantService.getRestaurantById(id);
+    const foundLocal = await this.localService.getLocalById(id);
     const newEatable = this.eatableRespository.create(eatable);
-    newEatable.restaurant = foundRestaurant;
+    newEatable.local = foundLocal;
     return await this.eatableRespository.save(newEatable);
   }
   //   async createEatable2(eatable: CreateEatableDto, restaurant: Restaurant) {
@@ -28,24 +29,24 @@ export class EatablesService {
   getEatables() {
     return this.eatableRespository.find();
   }
-  getEatableByType(eatable: FindEatableDto) {
-    return this.eatableRespository.find({
+  async getEatableByType(eatable: FindEatableDto) {
+    return await this.eatableRespository.find({
       where: {
         menuType: eatable.menuType,
       },
     });
   }
 
-  getEatableByName(eatable: FindEatableDto) {
-    return this.eatableRespository.find({
+  async getEatableByName(eatable: FindEatableDto) {
+    return await this.eatableRespository.find({
       where: {
         name: eatable.name,
       },
     });
   }
 
-  getEatableByMenuType(eatable: FindEatableDto) {
-    return this.eatableRespository.find({
+  async getEatableByMenuType(eatable: FindEatableDto) {
+    return await this.eatableRespository.find({
       where: {
         menuType: eatable.menuType,
       },
@@ -58,8 +59,11 @@ export class EatablesService {
     });
     return eatable;
   }
+  async updateEatable(id: string, eatable: UpdateEatableDto) {
+    return await this.eatableRespository.update(id, eatable);
+  }
 
-  deleteEatable(idEatable: string) {
-    return this.eatableRespository.delete(idEatable);
+  async deleteEatable(idEatable: string) {
+    return await this.eatableRespository.delete(idEatable);
   }
 }

@@ -1,4 +1,4 @@
-import { Restaurant } from 'src/restaurants/restaurants.entity';
+import { Local } from 'src/locals/locals.entity';
 import { Entity, Column, PrimaryColumn, Generated, ManyToOne } from 'typeorm';
 @Entity()
 export class Eatable {
@@ -30,8 +30,8 @@ export class Eatable {
   @Column({ default: 'ACTIVE' })
   status: 'ACTIVE' | 'DELETED';
 
-  @ManyToOne(() => Restaurant, (restaurant) => restaurant.menus, {
+  @ManyToOne(() => Local, (local) => local.menus, {
     cascade: ['insert', 'update'],
   })
-  restaurant: Restaurant;
+  local: Local;
 }

@@ -10,7 +10,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { ClientsService } from './clients.service';
-import { UpdateClientDto } from './dto/updateClientDto';
+import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
 
 @Controller('clients')
 export class ClientsController {
@@ -44,13 +44,13 @@ export class ClientsController {
     return result;
   }
 
-  @Patch(':id')
-  async updateClient(@Param('id') id: string, @Body() client: UpdateClientDto) {
+  @Patch(':id/adress')
+  async updateClient(@Param('id') id: string, @Body() adress: CreateAdressDto) {
     const clientFound = await this.clientService.getClientById(id);
 
     if (!clientFound) {
       throw new HttpException('Client does not exist', HttpStatus.NOT_FOUND);
     }
-    return this.clientService.updateClient(id, client);
+    return this.clientService.AddAdressToClient(adress, id);
   }
 }

@@ -15,6 +15,7 @@ import { UpdatePaymentDto } from './dto/updatePaymentDto';
 @Controller('payments')
 export class PaymentsController {
   constructor(private paymentService: PaymentsService) {}
+  //toma una orden y se agrega esta
   @Post()
   createPayment() {
     return this.paymentService.createPayment();
@@ -38,7 +39,7 @@ export class PaymentsController {
     const result = await this.paymentService.deletePayment(id);
 
     if (result.affected === 0) {
-      throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
+      throw new HttpException('Payment does not exist', HttpStatus.NOT_FOUND);
     }
     return result;
   }
@@ -46,13 +47,13 @@ export class PaymentsController {
   @Patch(':id')
   async updatePayment(
     @Param('id') id: string,
-    @Body() order: UpdatePaymentDto,
+    @Body() payment: UpdatePaymentDto,
   ) {
-    const orderFound = await this.paymentService.getPaymentById(id);
+    const paymentFound = await this.paymentService.getPaymentById(id);
 
-    if (!orderFound) {
-      throw new HttpException('Client does not exist', HttpStatus.NOT_FOUND);
+    if (!paymentFound) {
+      throw new HttpException('Payment does not exist', HttpStatus.NOT_FOUND);
     }
-    return this.paymentService.updatePayment(id, order);
+    return this.paymentService.updatePayment(id, payment);
   }
 }
