@@ -32,7 +32,7 @@ export class UsersController {
   }
   @Get()
   getAllUsers() {
-    //deberia mapear users
+  
     return this.userService.getUsers();
   }
 

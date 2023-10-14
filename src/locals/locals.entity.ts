@@ -19,9 +19,6 @@ export class Local {
   @Generated('uuid')
   id: string;
 
-  @Column()
-  name: string;
-
   @Column({ nullable: true })
   description: string;
 

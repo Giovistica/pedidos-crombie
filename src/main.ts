@@ -8,6 +8,6 @@ async function bootstrap() {
   await app.listen(3000);
 
   const configService = app.get(ConfigService);
-  console.log(configService.get('PORT'));
+  console.log(configService.get('SECRET'));
 }
 bootstrap();

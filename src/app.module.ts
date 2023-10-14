@@ -31,8 +31,8 @@ import { ProfileReviews } from './profileReviews/profileReviews.entity';
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.HOST,
-      port: parseInt(process.env.PORT),
+      host: 'localhost',
+      port: 3306,
       username: 'root',
       password: 'root',
       database: 'prueba',

@@ -24,10 +24,12 @@ export class UsersService {
 
     if (user.role == Roles.CLIENT) {
       const newClient = await this.clientsService.createClient();
+
       newUser.client = newClient;
     }
     if (user.role == Roles.LOCAL) {
       const newLocal = await this.localService.createLocal();
+
       newUser.local = newLocal;
     }
 
@@ -35,14 +37,16 @@ export class UsersService {
       const newDelivery = await this.deliveryService.createDelivery();
       newUser.delivery = newDelivery;
     }
+
     this.userRespository.save(newUser);
 
-    return await this.mapUserDto;
+    return this.mapUserDto(newUser);
   }
   async getUsers() {
     const users = await this.userRespository.find();
-    const dtos = users.map((element) => {
-      this.mapUserDto(element);
+    const dtos = [];
+    users.forEach((element) => {
+      dtos.push(this.mapUserDto(element));
     });
     return dtos;
   }
@@ -75,25 +79,27 @@ export class UsersService {
   }
 
   mapUserDto(user: User) {
-    const res = new UserCreatedDto();
+    const dto = new UserCreatedDto();
 
-    res.email = user.email;
-    res.lastName = user.lastName;
-    res.name = user.name;
-    res.name = user.name;
+    dto.email = user.email;
+    dto.lastName = user.lastName;
+    dto.name = user.name;
+    dto.phoneNumber = user.phoneNumber;
+    dto.createdAt = user.createdAt;
 
     if (user.role == Roles.CLIENT) {
-      res.role = Roles.CLIENT;
-      res.clientID = user.client.id;
+      dto.role = Roles.CLIENT;
+      dto.clientID = user.client.id;
     }
     if (user.role == Roles.DELIVERY) {
-      res.role = Roles.DELIVERY;
-      res.clientID = user.delivery.id;
+      dto.role = Roles.DELIVERY;
+      dto.deliveryID = user.delivery.id;
     }
     if (user.role == Roles.LOCAL) {
-      res.role = Roles.LOCAL;
-      res.clientID = user.local.id;
+      dto.role = Roles.LOCAL;
+      dto.localID = user.local.id;
     }
-    return res;
+    console.log(dto);
+    return dto;
   }
 }

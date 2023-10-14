@@ -32,7 +32,7 @@ export class User {
   @Column()
   phoneNumber: string;
 
-  @Column()
+  @Column({ type: 'enum', enum: Roles, default: Roles.CLIENT })
   role: Roles;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })

@@ -3,5 +3,5 @@ export class CreateVehicleDto {
 
   type: string;
 
-  patent: string;
+  patent?: string;
 }

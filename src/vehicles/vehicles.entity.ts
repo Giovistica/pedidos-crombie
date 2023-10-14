@@ -9,6 +9,6 @@ export class Vehicle {
   name: string;
   @Column()
   type: string;
-  @Column()
+  @Column({ nullable: true })
   patent: string;
 }
