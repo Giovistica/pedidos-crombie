@@ -32,11 +32,11 @@ import { AuthModule } from './auth/auth.module';
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.host,
-      port: 3306,
-      username: 'root',
-      password: 'root',
-      database: 'prueba',
+      host: process.env.HOST,
+      port: parseInt(process.env.PORT),
+      username: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PASSWORD,
+      database: process.env.DATABASE,
       entities: [
         User,
         Client,
