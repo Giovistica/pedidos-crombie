@@ -1,5 +1,6 @@
 import { Address } from 'src/address/address.entity';
 import { Eatable } from 'src/eatables/eatables.entity';
+import { LocalType } from 'src/enums/local.enum';
 import { Order } from 'src/orders/orders.entity';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 
@@ -25,15 +26,8 @@ export class Local {
   @Column({ nullable: true })
   description: string;
 
-  @Column({ default: 'RESTAURANT' })
-  type:
-    | 'RESTAURANT'
-    | 'MARKET'
-    | 'BAKERY'
-    | 'PASTRYSHOP'
-    | 'GELATERIA'
-    | 'GROCERY'
-    | 'DELICATESSEN';
+  @Column({ type: 'enum', enum: LocalType, default: LocalType.grocery })
+  type: LocalType;
 
   @OneToMany(() => Order, (order) => order.local)
   ordersHistory: Array<Order>[];

@@ -16,6 +16,7 @@ import {
   OneToOne,
   PrimaryColumn,
 } from 'typeorm';
+import { Status } from 'src/enums/status.enum';
 
 @Entity()
 export class Order {
@@ -44,8 +45,8 @@ export class Order {
   @ManyToOne(() => Delivery, (delivery) => delivery.ordersHistory)
   delivery: Delivery;
 
-  @Column({ default: 'WAITING' })
-  status: 'WAITING' | 'ONPREP' | 'PREP' | 'ONITSWAY' | 'RECEIVED' | 'CANCELLED';
+  @Column({ default: Status.waiting })
+  status: Status;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   date: Date;

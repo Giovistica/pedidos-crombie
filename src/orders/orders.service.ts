@@ -14,6 +14,7 @@ import { findCityDto } from 'src/address/dto/findCityDto';
 import { AddressService } from 'src/address/address.service';
 import { LocalsService } from 'src/locals/locals.service';
 import { CreateAddressDto } from 'src/address/dto/createAddressDto';
+import { Status } from 'src/enums/status.enum';
 
 @Injectable()
 export class OrdersService {
@@ -103,7 +104,7 @@ export class OrdersService {
   }
   async getOrdersOnPrep(city: findCityDto) {
     const orders = await this.orderRespository.find({
-      where: { status: 'PREP' },
+      where: { status: Status.prep },
     });
 
     const result = orders.filter(

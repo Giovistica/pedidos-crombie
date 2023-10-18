@@ -1,3 +1,4 @@
+import { MenuType } from 'src/enums/menuType.enum';
 import { Local } from 'src/locals/locals.entity';
 import { Entity, Column, PrimaryColumn, Generated, ManyToOne } from 'typeorm';
 @Entity()
@@ -24,11 +25,8 @@ export class Eatable {
   @Column()
   name: string;
 
-  @Column()
-  menuType: 'SALTY' | 'SWEET' | 'BEBERAGE';
-
-  @Column({ default: 'ACTIVE' })
-  status: 'ACTIVE' | 'DELETED';
+  @Column({ type: 'enum', enum: MenuType, default: MenuType.salty })
+  menuType: MenuType;
 
   @ManyToOne(() => Local, (local) => local.menus, {
     cascade: ['insert', 'update'],
