@@ -5,17 +5,19 @@ import { LocalsService } from './locals.service';
 import { LocalsController } from './locals.controller';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesService } from 'src/eatables/eatables.service';
-import { AdressService } from 'src/adress/adress.service';
-import { Adress } from 'src/adress/adress.entity';
+import { Address } from 'src/address/address.entity';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
+import { AddressService } from 'src/address/address.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Local, Eatable, Adress, ProfileReviews])],
+  imports: [
+    TypeOrmModule.forFeature([Local, Eatable, Address, ProfileReviews]),
+  ],
   providers: [
     LocalsService,
     EatablesService,
-    AdressService,
+    AddressService,
     ProfileReviewsService,
   ],
   controllers: [LocalsController],

@@ -6,11 +6,11 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
 import { EatablesService } from './eatables.service';
-import { CreateEatableDto } from './dto/createEatableDto';
 import { UpdateEatableDto } from './dto/updateEatableDto';
 
 @Controller('eatables')
@@ -18,11 +18,16 @@ export class EatablesController {
   constructor(private eatableService: EatablesService) {}
 
   @Post(':id')
-  async createEatables(
+  async updateLocal(
     @Param('id') id: string,
-    @Body() newEatable: CreateEatableDto,
+    @Body() eatable: UpdateEatableDto,
   ) {
-    return this.eatableService.createEatable(newEatable, id);
+    const eatableFound = await this.eatableService.getEatableById(id);
+
+    if (!eatableFound) {
+      throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
+    }
+    return this.eatableService.updateEatable(id, eatable);
   }
   @Get(':id')
   async getEatableById(@Param('id') id: string) {
@@ -59,15 +64,10 @@ export class EatablesController {
   }
 
   @Patch(':id')
-  async updateClient(
-    @Param('id') id: string,
-    @Body() eatable: UpdateEatableDto,
+  async updateEatable(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() local: UpdateEatableDto,
   ) {
-    const eatableFound = await this.eatableService.getEatableById(id);
-
-    if (!eatableFound) {
-      throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
-    }
-    return this.eatableService.updateEatable(id, eatable);
+    return this.eatableService.updateEatable(id, local);
   }
 }

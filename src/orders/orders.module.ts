@@ -6,8 +6,7 @@ import { OrdersController } from './orders.controller';
 import { Client } from 'src/clients/client.entity';
 import { ClientsModule } from 'src/clients/clients.module';
 import { LocalsModule } from 'src/locals/locals.module';
-import { Adress } from 'src/adress/adress.entity';
-import { AdressModule } from 'src/adress/adress.module';
+import { AddressModule } from 'src/address/address.module';
 import { Delivery } from 'src/deliverys/deliverys.entity';
 import { DeliverysModule } from 'src/deliverys/deliverys.module';
 import { Eatable } from 'src/eatables/eatables.entity';
@@ -15,6 +14,7 @@ import { EatablesModule } from 'src/eatables/eatables.module';
 import { Payment } from 'src/payments/payments.entity';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { Local } from 'src/locals/locals.entity';
+import { Address } from 'src/address/address.entity';
 
 @Module({
   imports: [
@@ -22,14 +22,14 @@ import { Local } from 'src/locals/locals.entity';
       Order,
       Client,
       Local,
-      Adress,
+      Address,
       Delivery,
       Eatable,
       Payment,
     ]),
     ClientsModule,
     LocalsModule,
-    AdressModule,
+    AddressModule,
     DeliverysModule,
     EatablesModule,
     PaymentsModule,

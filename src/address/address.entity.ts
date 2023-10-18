@@ -2,12 +2,12 @@ import { Order } from 'src/orders/orders.entity';
 import { Column, Entity, Generated, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
-export class Adress {
+export class Address {
   @PrimaryColumn()
   @Generated('uuid')
-  idAdress: string;
+  idAddress: string;
 
-  @Column()
+  @Column({ default: 'ARGENTINA' })
   country: string;
 
   @Column()
@@ -28,6 +28,6 @@ export class Adress {
   @Column({ default: '-' })
   apartment: string;
 
-  @OneToMany(() => Order, (order) => order.adress)
+  @OneToMany(() => Order, (order) => order.address)
   orders: Array<Order>;
 }

@@ -9,8 +9,8 @@ import { DeliverysService } from 'src/deliverys/deliverys.service';
 import { Delivery } from 'src/deliverys/deliverys.entity';
 import { LocalsService } from 'src/locals/locals.service';
 import { Local } from 'src/locals/locals.entity';
-import { Adress } from 'src/adress/adress.entity';
-import { AdressService } from 'src/adress/adress.service';
+import { Address } from 'src/address/address.entity';
+import { AddressService } from 'src/address/address.service';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
 
@@ -21,7 +21,7 @@ import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service
       Client,
       Local,
       Delivery,
-      Adress,
+      Address,
       LocalsService,
       ProfileReviews,
     ]),
@@ -32,7 +32,7 @@ import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service
     ClientsService,
     LocalsService,
     DeliverysService,
-    AdressService,
+    AddressService,
     LocalsService,
     ProfileReviewsService,
   ],

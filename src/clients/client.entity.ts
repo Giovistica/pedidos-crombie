@@ -1,4 +1,4 @@
-import { Adress } from 'src/adress/adress.entity';
+import { Address } from 'src/address/address.entity';
 import { Order } from 'src/orders/orders.entity';
 import { Review } from 'src/reviews/reviews.entity';
 
@@ -23,7 +23,7 @@ export class Client {
   @OneToMany(() => Review, (review) => review.reviewer)
   reviewsMade: Array<Review>;
 
-  @OneToOne(() => Adress, { eager: true })
+  @OneToOne(() => Address, { eager: true })
   @JoinColumn()
-  adress: Adress;
+  address: Address;
 }

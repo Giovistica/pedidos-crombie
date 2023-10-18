@@ -14,8 +14,8 @@ import { OrdersService } from './orders.service';
 import { CreateOrderDto } from './dto/createOrderDto';
 import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
-import { findCityDto } from 'src/adress/dto/findCityDto';
-import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
+import { findCityDto } from 'src/address/dto/findCityDto';
+import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 
 @Controller('orders')
 export class OrdersController {
@@ -57,7 +57,7 @@ export class OrdersController {
   @Patch(':id/adress')
   async updateOrderAdress(
     @Param('id') id: string,
-    @Body() adress: CreateAdressDto,
+    @Body() adress: CreateAddressDto,
   ) {
     const orderFound = await this.orderService.getOrderById(id);
     if (!orderFound) {

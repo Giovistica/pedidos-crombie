@@ -10,10 +10,10 @@ import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesService } from 'src/eatables/eatables.service';
 import { PaymentsService } from 'src/payments/payments.service';
-import { findCityDto } from 'src/adress/dto/findCityDto';
-import { AdressService } from 'src/adress/adress.service';
+import { findCityDto } from 'src/address/dto/findCityDto';
+import { AddressService } from 'src/address/address.service';
 import { LocalsService } from 'src/locals/locals.service';
-import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
+import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 
 @Injectable()
 export class OrdersService {
@@ -21,7 +21,7 @@ export class OrdersService {
     @InjectRepository(Order) private orderRespository: Repository<Order>,
     private clientService: ClientsService,
     private localService: LocalsService,
-    private adressService: AdressService,
+    private addressService: AddressService,
     private deliveryService: DeliverysService,
     private eatableService: EatablesService,
     private paymentService: PaymentsService,
@@ -54,9 +54,9 @@ export class OrdersService {
   deleteOrder(id: string) {
     return this.orderRespository.delete(id);
   }
-  async updateOrderAdress(order: Order, adress: CreateAdressDto) {
-    const newAdress = await this.adressService.createAdress(adress);
-    order.adress = newAdress;
+  async updateOrderAdress(order: Order, adress: CreateAddressDto) {
+    const newAdress = await this.addressService.createAddress(adress);
+    order.address = newAdress;
     return this.orderRespository.save(order);
   }
 
@@ -108,9 +108,9 @@ export class OrdersService {
 
     const result = orders.filter(
       (order) =>
-        order.adress.city == city.city &&
-        order.adress.country == city.country &&
-        order.adress.state == city.state,
+        order.address.city == city.city &&
+        order.address.country == city.country &&
+        order.address.state == city.state,
     );
     return result;
   }
