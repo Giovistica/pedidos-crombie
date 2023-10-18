@@ -1,4 +1,5 @@
 export class CreateEatableDto {
+  //Nombre más publicitario
   title: string;
 
   description: string;

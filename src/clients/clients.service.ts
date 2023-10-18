@@ -2,14 +2,14 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Client } from './client.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
-import { AdressService } from 'src/adress/adress.service';
+import { CreateAddressDto } from 'src/address/dto/createAddressDto';
+import { AddressService } from 'src/address/address.service';
 
 @Injectable()
 export class ClientsService {
   constructor(
     @InjectRepository(Client) private clientRespository: Repository<Client>,
-    private adressService: AdressService,
+    private adressService: AddressService,
   ) {}
 
   createClient() {
@@ -31,15 +31,15 @@ export class ClientsService {
     return this.clientRespository.delete(id);
   }
 
-  async AddAdressToClient(adress: CreateAdressDto, id: string) {
+  async AddAdressToClient(adress: CreateAddressDto, id: string) {
     const ClientFound = await this.getClientById(id);
 
     if (!ClientFound) {
       throw new HttpException('Client does not exist', HttpStatus.NOT_FOUND);
     }
-    const newAdress = await this.adressService.createAdress(adress);
+    const newAdress = await this.adressService.createAddress(adress);
 
-    ClientFound.adress = newAdress;
+    ClientFound.address = newAdress;
     return this.clientRespository.save(ClientFound);
   }
 }

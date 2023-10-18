@@ -12,7 +12,7 @@ import { DeliverysModule } from './deliverys/deliverys.module';
 import { RewiesModule } from './reviews/reviews.module';
 import { PaymentsModule } from './payments/payments.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
-import { AdressModule } from './adress/adress.module';
+import { AddressModule } from './address/address.module';
 import { EatablesModule } from './eatables/eatables.module';
 import { Client } from './clients/client.entity';
 import { Delivery } from './deliverys/deliverys.entity';
@@ -22,7 +22,7 @@ import { Payment } from './payments/payments.entity';
 import { Local } from './locals/locals.entity';
 import { Review } from './reviews/reviews.entity';
 import { Vehicle } from './vehicles/vehicles.entity';
-import { Adress } from './adress/adress.entity';
+import { Address } from './address/address.entity';
 import { ProfileReviewsModule } from './profileReviews/profileReviews.module';
 import { ProfileReviews } from './profileReviews/profileReviews.entity';
 import { AuthModule } from './auth/auth.module';
@@ -40,7 +40,7 @@ import { AuthModule } from './auth/auth.module';
       entities: [
         User,
         Client,
-        Adress,
+        Address,
         Delivery,
         Eatable,
         Order,
@@ -61,7 +61,7 @@ import { AuthModule } from './auth/auth.module';
     RewiesModule,
     PaymentsModule,
     VehiclesModule,
-    AdressModule,
+    AddressModule,
     EatablesModule,
     ProfileReviewsModule,
     AuthModule,

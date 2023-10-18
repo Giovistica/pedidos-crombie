@@ -1,4 +1,4 @@
-import { Adress } from 'src/adress/adress.entity';
+import { Address } from 'src/address/address.entity';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { Order } from 'src/orders/orders.entity';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
@@ -18,6 +18,9 @@ export class Local {
   @PrimaryColumn()
   @Generated('uuid')
   id: string;
+
+  @Column({ nullable: true })
+  localName: string;
 
   @Column({ nullable: true })
   description: string;
@@ -42,7 +45,7 @@ export class Local {
   @OneToMany(() => Eatable, (eatable) => eatable.local, { eager: true })
   menus: Eatable[];
 
-  @OneToOne(() => Adress, { eager: true })
+  @OneToOne(() => Address, { eager: true })
   @JoinColumn()
-  adress: Adress;
+  address: Address;
 }

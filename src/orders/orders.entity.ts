@@ -1,6 +1,6 @@
 import { Client } from 'src/clients/client.entity';
 import { Delivery } from 'src/deliverys/deliverys.entity';
-import { Adress } from 'src/adress/adress.entity';
+import { Address } from 'src/address/address.entity';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { Local } from 'src/locals/locals.entity';
 import { Payment } from 'src/payments/payments.entity';
@@ -17,7 +17,6 @@ import {
   PrimaryColumn,
 } from 'typeorm';
 
-
 @Entity()
 export class Order {
   @PrimaryColumn()
@@ -31,8 +30,8 @@ export class Order {
   @Column({ default: 0 })
   totalPrice: number;
 
-  @ManyToOne(() => Adress, (adress) => adress.orders)
-  adress: Adress;
+  @ManyToOne(() => Address, (address) => address.orders)
+  address: Address;
 
   @ManyToOne(() => Client, (client) => client.ordersHistory, {
     cascade: ['insert', 'update'],

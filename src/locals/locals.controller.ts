@@ -1,16 +1,20 @@
 import {
+  Body,
   Controller,
   Get,
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
+  Patch,
   Post,
   Query,
 } from '@nestjs/common';
 
 import { EatablesService } from 'src/eatables/eatables.service';
 import { LocalsService } from './locals.service';
-import { findCityDto } from 'src/adress/dto/findCityDto';
+import { findCityDto } from 'src/address/dto/findCityDto';
+import { UpdateLocalDto } from './dto/updateLocalDto';
 
 @Controller('locals')
 export class LocalsController {
@@ -89,5 +93,13 @@ export class LocalsController {
   async getLocalsInCity(@Query('') city: findCityDto) {
     console.log(city);
     return this.localService.getLocalsInCity(city);
+  }
+
+  @Patch(':id')
+  async updateLocal(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() local: UpdateLocalDto,
+  ) {
+    return this.localService.updateLocal(id, local);
   }
 }

@@ -6,14 +6,13 @@ import { ClientsController } from './clients.controller';
 import { Order } from 'src/orders/orders.entity';
 import { LocalsModule } from 'src/locals/locals.module';
 import { Review } from 'src/reviews/reviews.entity';
-import { Adress } from 'src/adress/adress.entity';
-import { AdressModule } from 'src/adress/adress.module';
-
+import { Address } from 'src/address/address.entity';
+import { AddressModule } from 'src/address/address.module';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Client, Order, Review, Adress]),
+    TypeOrmModule.forFeature([Client, Order, Review, Address]),
     LocalsModule,
-    AdressModule,
+    AddressModule,
   ],
   providers: [ClientsService],
   controllers: [ClientsController],

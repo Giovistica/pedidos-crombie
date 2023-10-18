@@ -3,9 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Local } from './locals.entity';
 import { UpdateLocalDto } from './dto/updateLocalDto';
-import { findCityDto } from 'src/adress/dto/findCityDto';
-import { AdressService } from 'src/adress/adress.service';
-import { CreateAdressDto } from 'src/adress/dto/createAdressDto';
+import { findCityDto } from 'src/address/dto/findCityDto';
+import { AddressService } from 'src/address/address.service';
+import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
 
 @Injectable()
@@ -13,7 +13,7 @@ export class LocalsService {
   constructor(
     @InjectRepository(Local)
     private localRespository: Repository<Local>,
-    private adressService: AdressService,
+    private adressService: AddressService,
     private profileReviewsService: ProfileReviewsService,
   ) {}
 
@@ -45,22 +45,22 @@ export class LocalsService {
     const locals = await this.getLocals();
 
     const localsByAdress = locals
-      .filter((local) => local.adress !== null)
-      .filter((local) => local.adress.city === city.city)
-      .filter((local) => local.adress.state === city.state)
-      .filter((local) => local.adress.country === city.country);
+      .filter((local) => local.address !== null)
+      .filter((local) => local.address.city === city.city)
+      .filter((local) => local.address.state === city.state)
+      .filter((local) => local.address.country === city.country);
 
     return localsByAdress;
   }
-  async AddAdressToLocal(adress: CreateAdressDto, id: string) {
+  async AddAdressToLocal(adress: CreateAddressDto, id: string) {
     const localFound = await this.getLocalById(id);
 
     if (!localFound) {
       throw new HttpException('Local does not exist', HttpStatus.NOT_FOUND);
     }
-    const newAdress = await this.adressService.createAdress(adress);
+    const newAdress = await this.adressService.createAddress(adress);
 
-    localFound.adress = newAdress;
+    localFound.address = newAdress;
     return this.localRespository.save(localFound);
   }
 }
