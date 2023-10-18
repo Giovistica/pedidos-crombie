@@ -1,4 +1,6 @@
+import { MenuType } from 'src/enums/menuType.enum';
+
 export class FindEatableDto {
-  menuType?: 'SALTY' | 'SWEET' | 'BEBERAGE';
+  menuType?: MenuType;
   name?: string;
 }

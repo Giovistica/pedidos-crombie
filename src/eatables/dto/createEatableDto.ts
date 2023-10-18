@@ -1,3 +1,5 @@
+import { MenuType } from 'src/enums/menuType.enum';
+
 export class CreateEatableDto {
   //Nombre más publicitario
   title: string;
@@ -8,7 +10,7 @@ export class CreateEatableDto {
 
   price: number;
 
-  menuType: 'SALTY' | 'SWEET' | 'BEBERAGE';
+  menuType: MenuType;
 
   name: string;
 }

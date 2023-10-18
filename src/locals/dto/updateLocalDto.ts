@@ -1,12 +1,7 @@
+import { LocalType } from 'src/enums/local.enum';
+
 export class UpdateLocalDto {
   localName?: string;
   description?: string;
-  type?:
-    | 'RESTAURANT'
-    | 'MARKET'
-    | 'BAKERY'
-    | 'PASTRYSHOP'
-    | 'GELATERIA'
-    | 'GROCERY'
-    | 'DELICATESSEN';
+  type?: LocalType;
 }

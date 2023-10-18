@@ -1,3 +1,5 @@
+import { MenuType } from 'src/enums/menuType.enum';
+
 export class UpdateEatableDto {
   title?: string;
 
@@ -7,7 +9,7 @@ export class UpdateEatableDto {
 
   price?: number;
 
-  menuType?: 'SALTY' | 'SWEET' | 'BEBERAGE';
+  menuType?: MenuType;
 
   name?: string;
 }
