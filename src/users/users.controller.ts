@@ -15,6 +15,8 @@ import { UsersService } from './users.service';
 import { CreateUserDto } from './DTO/createUserDto';
 import { UpdateUserDto } from './DTO/updateUserDto';
 import { Response } from 'express';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { Roles } from 'src/enums/role.enum';
 
 @Controller('users')
 export class UsersController {
@@ -31,6 +33,7 @@ export class UsersController {
     return response.status(201).json(user);
   }
   @Get()
+  @Auth(Roles.DELIVERY)
   getAllUsers() {
     return this.userService.getUsers();
   }
