@@ -8,6 +8,7 @@ import { UsersService } from 'src/users/users.service';
 import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/loginDto';
 import { JwtService } from '@nestjs/jwt';
+import { jwtConstants } from './jwt.constants';
 
 @Injectable()
 export class AuthService {
@@ -54,7 +55,9 @@ export class AuthService {
 
     const payload = { email: user.email, role: user.role };
 
-    const token = await this.jwtService.signAsync(payload);
+    const token = await this.jwtService.signAsync(payload, {
+      secret: jwtConstants.secret,
+    });
 
     return {
       token: token,
