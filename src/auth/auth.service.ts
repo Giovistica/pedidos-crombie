@@ -59,9 +59,31 @@ export class AuthService {
       secret: jwtConstants.secret,
     });
 
-    return {
-      token: token,
-      email: user.email,
-    };
+    if (user.role === 'CLIENT') {
+      const id: string = user.client.id;
+      return {
+        token: token,
+        email: user.email,
+        idClient: id,
+      };
+    }
+
+    if (user.role === 'LOCAL') {
+      const id: string = user.local.id;
+      return {
+        token: token,
+        email: user.email,
+        idLocal: id,
+      };
+    }
+
+    if (user.role === 'DELIVERY') {
+      const id: string = user.delivery.id;
+      return {
+        token: token,
+        email: user.email,
+        idDelivery: id,
+      };
+    }
   }
 }
