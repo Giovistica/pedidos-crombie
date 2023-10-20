@@ -60,29 +60,35 @@ export class AuthService {
     });
 
     if (user.role === 'CLIENT') {
-      const id: string = user.client.id;
+      let validator: boolean;
+      !user.client.address ? validator = false :  validator = true
       return {
         token: token,
         email: user.email,
-        idClient: id,
+        isValid: validator,
+        type: "CLIENT"
       };
     }
 
     if (user.role === 'LOCAL') {
-      const id: string = user.local.id;
+      let validator: boolean;
+      !user.local.address ? validator = false :  validator = true
       return {
         token: token,
         email: user.email,
-        idLocal: id,
+        isValid: validator,
+        type: "LOCAL"
       };
     }
 
     if (user.role === 'DELIVERY') {
-      const id: string = user.delivery.id;
+      let validator: boolean;
+      !user.delivery.vehicle ? validator = false :  validator = true
       return {
         token: token,
         email: user.email,
-        idDelivery: id,
+        isValid: validator,
+        type: "DELIVERY"
       };
     }
   }
