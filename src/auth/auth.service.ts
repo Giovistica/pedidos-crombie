@@ -64,9 +64,9 @@ export class AuthService {
       !user.client.address ? validator = false :  validator = true
       return {
         token: token,
-        email: user.email,
         isValid: validator,
-        type: "CLIENT"
+        type: "CLIENT",
+        idClient: user.client.id
       };
     }
 
