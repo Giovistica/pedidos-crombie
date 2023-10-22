@@ -60,8 +60,8 @@ export class AuthService {
     });
 
     if (user.role === 'CLIENT') {
-      let validator: boolean;
-      !user.client.address ? validator = false :  validator = true
+      let validator: number;
+      !user.client.address ? validator = -1 :  validator = 1
       return {
         token: token,
         isValid: validator,
@@ -71,8 +71,8 @@ export class AuthService {
     }
 
     if (user.role === 'LOCAL') {
-      let validator: boolean;
-      !user.local.address ? validator = false :  validator = true
+      let validator: number;
+      !user.local.address ? validator = -1 :  validator = 1
       return {
         token: token,
         email: user.email,
@@ -82,8 +82,8 @@ export class AuthService {
     }
 
     if (user.role === 'DELIVERY') {
-      let validator: boolean;
-      !user.delivery.vehicle ? validator = false :  validator = true
+      let validator: number;
+      !user.delivery.vehicle ? validator = -1 :  validator = 1
       return {
         token: token,
         email: user.email,
