@@ -9,6 +9,7 @@ import * as bcryptjs from 'bcryptjs';
 import { LoginDto } from './dto/loginDto';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './jwt.constants';
+import { Roles } from 'src/enums/role.enum';
 
 @Injectable()
 export class AuthService {
@@ -59,36 +60,36 @@ export class AuthService {
       secret: jwtConstants.secret,
     });
 
-    if (user.role === 'CLIENT') {
+    if (user.role === Roles.CLIENT) {
       let validator: number;
-      !user.client.address ? validator = -1 :  validator = 1
+      !user.client.address ? (validator = -1) : (validator = 1);
       return {
         token: token,
         isValid: validator,
-        type: "CLIENT",
-        idClient: user.client.id
+        type: user.role,
+        idClient: user.client.id,
       };
     }
 
-    if (user.role === 'LOCAL') {
+    if (user.role === Roles.LOCAL) {
       let validator: number;
-      !user.local.address ? validator = -1 :  validator = 1
+      !user.local.address ? (validator = -1) : (validator = 1);
       return {
         token: token,
         email: user.email,
         isValid: validator,
-        type: "LOCAL"
+        type: user.role,
       };
     }
 
-    if (user.role === 'DELIVERY') {
+    if (user.role === Roles.DELIVERY) {
       let validator: number;
-      !user.delivery.vehicle ? validator = -1 :  validator = 1
+      !user.delivery.vehicle ? (validator = -1) : (validator = 1);
       return {
         token: token,
         email: user.email,
         isValid: validator,
-        type: "DELIVERY"
+        type: user.role,
       };
     }
   }
