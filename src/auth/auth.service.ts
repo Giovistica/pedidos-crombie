@@ -59,10 +59,37 @@ export class AuthService {
       secret: jwtConstants.secret,
     });
 
-    return {
-      token: token,
-      email: user.email,
-      role: user.role,
-    };
+    if (user.role === 'CLIENT') {
+      let validator: number;
+      !user.client.address ? validator = -1 :  validator = 1
+      return {
+        token: token,
+        isValid: validator,
+        type: "CLIENT",
+        idClient: user.client.id
+      };
+    }
+
+    if (user.role === 'LOCAL') {
+      let validator: number;
+      !user.local.address ? validator = -1 :  validator = 1
+      return {
+        token: token,
+        email: user.email,
+        isValid: validator,
+        type: "LOCAL"
+      };
+    }
+
+    if (user.role === 'DELIVERY') {
+      let validator: number;
+      !user.delivery.vehicle ? validator = -1 :  validator = 1
+      return {
+        token: token,
+        email: user.email,
+        isValid: validator,
+        type: "DELIVERY"
+      };
+    }
   }
 }
