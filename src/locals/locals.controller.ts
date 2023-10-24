@@ -15,6 +15,7 @@ import { EatablesService } from 'src/eatables/eatables.service';
 import { LocalsService } from './locals.service';
 import { findCityDto } from 'src/address/dto/findCityDto';
 import { UpdateLocalDto } from './dto/updateLocalDto';
+import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 
 @Controller('locals')
 export class LocalsController {
@@ -101,5 +102,18 @@ export class LocalsController {
     @Body() local: UpdateLocalDto,
   ) {
     return this.localService.updateLocal(id, local);
+  }
+
+  @Patch(':id/adress')
+  async addAdressToClient(
+    @Param('id') id: string,
+    @Body() adress: CreateAddressDto,
+  ) {
+    const localFound = await this.localService.getLocalById(id);
+
+    if (!localFound) {
+      throw new HttpException('local does not exist', HttpStatus.NOT_FOUND);
+    }
+    return this.localService.AddAdressToLocal(adress, id);
   }
 }
