@@ -49,11 +49,6 @@ export class ClientsController {
     @Param('id') id: string,
     @Body() adress: CreateAddressDto,
   ) {
-    const clientFound = await this.clientService.getClientById(id);
-
-    if (!clientFound) {
-      throw new HttpException('Client does not exist', HttpStatus.NOT_FOUND);
-    }
     return this.clientService.AddAdressToClient(adress, id);
   }
 }

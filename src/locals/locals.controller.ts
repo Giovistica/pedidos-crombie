@@ -105,7 +105,7 @@ export class LocalsController {
   }
 
   @Patch(':id/adress')
-  async addAdressToClient(
+  async addAdressToLocal(
     @Param('id') id: string,
     @Body() adress: CreateAddressDto,
   ) {
