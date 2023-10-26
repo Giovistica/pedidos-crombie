@@ -67,7 +67,7 @@ export class AuthService {
         token: token,
         isValid: validator,
         type: user.role,
-        idClient: user.client.id,
+        idRol: user.client.id,
       };
     }
 
@@ -76,9 +76,9 @@ export class AuthService {
       !user.local.address ? (validator = -1) : (validator = 1);
       return {
         token: token,
-        email: user.email,
         isValid: validator,
         type: user.role,
+        idRol: user.local.id
       };
     }
 
@@ -87,9 +87,9 @@ export class AuthService {
       !user.delivery.vehicle ? (validator = -1) : (validator = 1);
       return {
         token: token,
-        email: user.email,
         isValid: validator,
         type: user.role,
+        idRol: user.delivery.id
       };
     }
   }
