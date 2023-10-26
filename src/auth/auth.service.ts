@@ -78,7 +78,7 @@ export class AuthService {
         token: token,
         isValid: validator,
         type: user.role,
-        idRol: user.local.id
+        idRol: user.local.id,
       };
     }
 
@@ -89,7 +89,7 @@ export class AuthService {
         token: token,
         isValid: validator,
         type: user.role,
-        idRol: user.delivery.id
+        idRol: user.delivery.id,
       };
     }
   }
