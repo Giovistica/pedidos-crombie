@@ -1,8 +1,8 @@
 export enum Status {
-  waiting = 'WAITING',
-  onprep = 'ONPREP',
-  prep = 'PREP',
-  onitsway = 'ONITSWAY',
-  received = 'RECEIVED',
-  cancelled = 'CANCELLED',
+  waiting = 'WAITING',//gria
+  onprep = 'ONPREP',//amarillo
+  prep = 'PREP', //verde clarito
+  onitsway = 'ONITSWAY', //verde merdio
+  received = 'RECEIVED', //verde oscuro
+  cancelled = 'CANCELLED',//rojo
 }

@@ -12,19 +12,24 @@ import {
 } from '@nestjs/common';
 import { VehiclesService } from './vehicles.service';
 import { CreateVehicleDto } from './dto/createVehicleDto';
+import { Roles } from 'src/enums/role.enum';
+import { Auth } from 'src/auth/decorators/auth.decorators';
 
 @Controller('vehicles')
 export class VehiclesController {
   constructor(private VehicleService: VehiclesService) {}
+
+  @Auth(Roles.DELIVERY)
   @Post(':id')
   createVehicle(@Param('id') id: string, @Query() vehicle: CreateVehicleDto) {
     return this.VehicleService.createVehicle(vehicle, id);
   }
+  @Auth(Roles.ADMIN)
   @Get()
   getAllVehicles() {
     return this.VehicleService.getVehicles();
   }
-
+  @Auth(Roles.DELIVERY)
   @Get(':id')
   async getVehicle(@Param('id') id: string) {
     const VehicleFound = await this.VehicleService.getVehicleById(id);
@@ -33,7 +38,7 @@ export class VehiclesController {
     }
     return VehicleFound;
   }
-
+  @Auth(Roles.DELIVERY)
   @Delete(':id')
   async deleteVehicle(@Param('id') id: string) {
     const result = await this.VehicleService.deleteVehicle(id);
@@ -43,7 +48,7 @@ export class VehiclesController {
     }
     return result;
   }
-
+  @Auth(Roles.DELIVERY)
   @Patch(':id')
   async updateVehicle(
     @Param('id') id: string,

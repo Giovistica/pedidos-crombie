@@ -21,7 +21,7 @@ import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 export class OrdersController {
   constructor(private orderService: OrdersService) {}
 
-  @Post('')
+  @Post()
   async createOrder(@Body() order: CreateOrderDto) {
     return await this.orderService.createOrder(order);
   }
