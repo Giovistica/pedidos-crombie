@@ -66,6 +66,7 @@ export class AuthService {
       return {
         token: token,
         isValid: validator,
+        menuValidator: null,
         type: user.role,
         idRol: user.client.id,
       };
@@ -73,10 +74,13 @@ export class AuthService {
 
     if (user.role === Roles.LOCAL) {
       let validator: number;
+      let menuValidator: number;
       !user.local.address ? (validator = -1) : (validator = 1);
+      user.local.menus.length < 3 ? (menuValidator = -1) : (menuValidator = 1);
       return {
         token: token,
         isValid: validator,
+        menuValidator: menuValidator,
         type: user.role,
         idRol: user.local.id,
       };
@@ -88,6 +92,7 @@ export class AuthService {
       return {
         token: token,
         isValid: validator,
+        menuValidator: null,
         type: user.role,
         idRol: user.delivery.id,
       };
