@@ -109,11 +109,6 @@ export class LocalsController {
     @Param('id') id: string,
     @Body() adress: CreateAddressDto,
   ) {
-    const localFound = await this.localService.getLocalById(id);
-
-    if (!localFound) {
-      throw new HttpException('local does not exist', HttpStatus.NOT_FOUND);
-    }
     return this.localService.AddAdressToLocal(adress, id);
   }
 }
