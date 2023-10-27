@@ -57,9 +57,9 @@ export class UsersController {
     }
     return result;
   }
-@Auth(Roles.LOCAL)
-@Auth(Roles.DELIVERY)
-@Auth(Roles.CLIENT)
+  @Auth(Roles.LOCAL)
+  @Auth(Roles.DELIVERY)
+  @Auth(Roles.CLIENT)
   @Patch(':id')
   async updateUser(
     @Param('id', new ParseUUIDPipe()) id: string,
