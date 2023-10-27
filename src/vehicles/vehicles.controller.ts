@@ -21,7 +21,7 @@ export class VehiclesController {
   constructor(private VehicleService: VehiclesService) {}
 
   @Post(':id')
-  createVehicle(@Param('id') id: string, @Query() vehicle: CreateVehicleDto) {
+  createVehicle(@Param('id') id: string, @Body() vehicle: CreateVehicleDto) {
     return this.VehicleService.createVehicle(vehicle, id);
   }
   @Auth(Roles.ADMIN)

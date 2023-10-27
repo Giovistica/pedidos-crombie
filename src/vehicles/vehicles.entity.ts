@@ -5,10 +5,13 @@ export class Vehicle {
   @PrimaryColumn()
   @Generated('uuid')
   id: string;
-  @Column()
+
+  @Column({ default: 'name' })
   name: string;
-  @Column()
+
+  @Column({ default: 'type' })
   type: string;
+
   @Column({ nullable: true })
   patent: string;
 }
