@@ -31,6 +31,7 @@ export class VehiclesService {
   deleteVehicle(id: string) {
     return this.vehicleRespository.delete(id);
   }
+
   async updateVehicle(id: string, vehicle: CreateVehicleDto) {
     return await this.vehicleRespository.update({ id }, vehicle);
   }

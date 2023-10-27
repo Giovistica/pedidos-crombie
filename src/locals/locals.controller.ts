@@ -90,7 +90,7 @@ export class LocalsController {
     return menus;
   }
 
-  @Get('locals/city')
+  @Get('city')
   async getLocalsInCity(@Query('') city: findCityDto) {
     console.log(city);
     return this.localService.getLocalsInCity(city);
