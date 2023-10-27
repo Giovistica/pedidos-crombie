@@ -60,6 +60,7 @@ export class EatablesService {
     return eatable;
   }
   async updateEatable(id: string, eatable: UpdateEatableDto) {
+    
     return await this.eatableRespository.update(id, eatable);
   }
 

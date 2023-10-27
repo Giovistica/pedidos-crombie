@@ -24,7 +24,7 @@ export class EatablesController {
 
   @Post(':id')
   async updateLocal(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() eatable: CreateEatableDto,
   ) {
     const localFound = await this.localService.getLocalById(id);
@@ -59,7 +59,7 @@ export class EatablesController {
   }
 
   @Delete(':id')
-  async deleteEatable(@Param('id') id: string) {
+  async deleteEatable(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.eatableService.deleteEatable(id);
 
     if (result.affected === 0) {
@@ -71,8 +71,12 @@ export class EatablesController {
   @Patch(':id')
   async updateEatable(
     @Param('id', new ParseUUIDPipe()) id: string,
-    @Body() local: UpdateEatableDto,
+    @Body() eatable: UpdateEatableDto,
   ) {
-    return this.eatableService.updateEatable(id, local);
+    const eatableFound = await this.eatableService.getEatableById(id);
+    if (!eatableFound) {
+      throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);
+    }
+    return this.eatableService.updateEatable(id, eatable);
   }
 }
