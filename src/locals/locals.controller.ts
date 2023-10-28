@@ -19,6 +19,7 @@ import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/enums/role.enum';
 
+@Auth(Roles.LOCAL)
 @Controller('locals')
 export class LocalsController {
   constructor(
@@ -100,7 +101,7 @@ export class LocalsController {
   ) {
     return this.localService.AddAdressToLocal(adress, id);
   }
-
+  @Auth(Roles.ADMIN)
   @Get(':id')
   async getLocal(@Param('id') id: string) {
     const localFound = await this.localService.getLocalById(id);
