@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
 import { DeliverysService } from './deliverys.service';
@@ -22,14 +23,11 @@ export class DeliverysController {
   }
 
   @Get(':id')
-  async getDelivery(@Param('id') id: string) {
+  async getDelivery(@Param('id', new ParseUUIDPipe()) id: string) {
     const deliveryFound = await this.deliveryService.getDeliveryById(id);
     if (!deliveryFound) {
       throw new HttpException('Delivery does not exist', HttpStatus.NOT_FOUND);
     }
     return deliveryFound;
-
   }
-
-  
 }

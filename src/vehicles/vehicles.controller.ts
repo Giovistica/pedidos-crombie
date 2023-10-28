@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -20,7 +21,10 @@ export class VehiclesController {
   constructor(private VehicleService: VehiclesService) {}
 
   @Post(':id')
-  createVehicle(@Param('id') id: string, @Body() vehicle: CreateVehicleDto) {
+  createVehicle(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Body() vehicle: CreateVehicleDto,
+  ) {
     return this.VehicleService.createVehicle(vehicle, id);
   }
   @Auth(Roles.ADMIN)
@@ -30,7 +34,7 @@ export class VehiclesController {
   }
 
   @Get(':id')
-  async getVehicle(@Param('id') id: string) {
+  async getVehicle(@Param('id', new ParseUUIDPipe()) id: string) {
     const VehicleFound = await this.VehicleService.getVehicleById(id);
     if (!VehicleFound) {
       throw new HttpException('Vehicle does not exist', HttpStatus.NOT_FOUND);
@@ -39,7 +43,7 @@ export class VehiclesController {
   }
 
   @Delete(':id')
-  async deleteVehicle(@Param('id') id: string) {
+  async deleteVehicle(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.VehicleService.deleteVehicle(id);
 
     if (result.affected === 0) {
@@ -50,7 +54,7 @@ export class VehiclesController {
 
   @Patch(':id')
   async updateVehicle(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() vehicle: CreateVehicleDto,
   ) {
     const vehicleFound = await this.VehicleService.getVehicleById(id);

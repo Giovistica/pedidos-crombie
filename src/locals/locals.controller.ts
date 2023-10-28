@@ -27,15 +27,6 @@ export class LocalsController {
     private eatableService: EatablesService,
   ) {}
 
-  // @Post(':id/eatable')
-  // async createEstableRes(
-  //   @Param('id') id: string,
-  //   @Body() eatable: CreateEatableDto,
-  // ) {
-  //   console.log(id);
-  //   const restaurantFound = await this.restaurantService.getRestaurantById(id);
-  //   return this.eatableService.createEatable2(eatable, restaurantFound);
-  // }
   @Auth(Roles.ADMIN)
   @Post()
   createLocal() {
@@ -79,7 +70,7 @@ export class LocalsController {
 
     return menus;
   }
-   @Auth(Roles.CLIENT)
+  @Auth(Roles.CLIENT)
   @Get(':id/menusName/:name')
   async getEatablesByMenuName(
     @Param('id') id: string,
@@ -96,7 +87,7 @@ export class LocalsController {
 
     return menus;
   }
- @Auth(Roles.CLIENT)
+  @Auth(Roles.CLIENT)
   @Get('city')
   async getLocalsInCity(@Query('') city: findCityDto) {
     console.log(city);

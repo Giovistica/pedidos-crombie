@@ -5,6 +5,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
 } from '@nestjs/common';
 import { ProfileReviewsService } from './profileReviews.service';
@@ -22,7 +23,7 @@ export class ProfileReviewsController {
   }
 
   @Get(':id')
-  async getProfileReviews(@Param('id') id: string) {
+  async getProfileReviews(@Param('id', new ParseUUIDPipe()) id: string) {
     const profileReviewsFound =
       await this.profileReviewsService.getProfileReviewsById(id);
     if (!profileReviewsFound) {
@@ -35,7 +36,7 @@ export class ProfileReviewsController {
   }
 
   @Delete(':id')
-  async deleteProfileReviews(@Param('id') id: string) {
+  async deleteProfileReviews(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.profileReviewsService.deleteProfileReviews(id);
 
     if (result.affected === 0) {

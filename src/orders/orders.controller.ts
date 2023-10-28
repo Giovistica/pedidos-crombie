@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
   Query,
@@ -36,7 +37,7 @@ export class OrdersController {
   }
 
   @Get(':id')
-  async getOrder(@Param('id') id: string) {
+  async getOrder(@Param('id', new ParseUUIDPipe()) id: string) {
     const orderFound = await this.orderService.getOrderById(id);
     if (!orderFound) {
       throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
@@ -45,7 +46,7 @@ export class OrdersController {
   }
 
   @Delete(':id')
-  async deleteOrder(@Param('id') id: string) {
+  async deleteOrder(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.orderService.deleteOrder(id);
 
     if (result.affected === 0) {
@@ -56,7 +57,7 @@ export class OrdersController {
 
   @Patch(':id/adress')
   async updateOrderAdress(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() adress: CreateAddressDto,
   ) {
     const orderFound = await this.orderService.getOrderById(id);
@@ -68,7 +69,7 @@ export class OrdersController {
 
   @Patch(':id/delivery')
   async updateOrderDelivery(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() idDelivery: UpdateOrderDeliveryDto,
   ) {
     const orderFound = await this.orderService.getOrderById(id);
@@ -79,7 +80,7 @@ export class OrdersController {
   }
   @Patch(':id/status')
   async updateOrderStatus(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() status: UpdateOrderStatusDto,
   ) {
     const orderFound = await this.orderService.getOrderById(id);
@@ -94,7 +95,7 @@ export class OrdersController {
 
   @Patch(':id/eatable')
   async addEatableToOrder(
-    @Param('id') idOrder: string,
+    @Param('id', new ParseUUIDPipe()) idOrder: string,
     @Query('idEatable') idEatable: string,
   ) {
     const orderFound = await this.orderService.getOrderById(idOrder);
@@ -110,7 +111,7 @@ export class OrdersController {
   }
   @Delete(':id/eatable')
   async deleteEatableToOrder(
-    @Param('id') idOrder: string,
+    @Param('id', new ParseUUIDPipe()) idOrder: string,
     @Query('idEatable') idEatable: string,
   ) {
     const orderFound = await this.orderService.getOrderById(idOrder);

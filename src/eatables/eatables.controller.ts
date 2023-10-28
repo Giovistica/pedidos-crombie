@@ -35,7 +35,7 @@ export class EatablesController {
     return this.eatableService.createEatable(eatable, id);
   }
   @Get(':id')
-  async getEatableById(@Param('id') id: string) {
+  async getEatableById(@Param('id', new ParseUUIDPipe()) id: string) {
     const eatableFound = await this.eatableService.getEatableById(id);
     if (!eatableFound) {
       throw new HttpException('Eatable does not exist', HttpStatus.NOT_FOUND);

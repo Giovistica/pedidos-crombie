@@ -6,16 +6,20 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
 import { UpdatePaymentDto } from './dto/updatePaymentDto';
+import { Roles } from 'src/enums/role.enum';
+import { Auth } from 'src/auth/decorators/auth.decorators';
 
+@Auth(Roles.ADMIN)
 @Controller('payments')
 export class PaymentsController {
   constructor(private paymentService: PaymentsService) {}
-  //toma una orden y se agrega esta
+
   @Post()
   createPayment() {
     return this.paymentService.createPayment();
@@ -26,7 +30,7 @@ export class PaymentsController {
   }
 
   @Get(':id')
-  async getPayment(@Param('id') id: string) {
+  async getPayment(@Param('id', new ParseUUIDPipe()) id: string) {
     const paymentFound = await this.paymentService.getPaymentById(id);
     if (!paymentFound) {
       throw new HttpException('Payment does not exist', HttpStatus.NOT_FOUND);
@@ -35,7 +39,7 @@ export class PaymentsController {
   }
 
   @Delete(':id')
-  async deletePayment(@Param('id') id: string) {
+  async deletePayment(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.paymentService.deletePayment(id);
 
     if (result.affected === 0) {
@@ -46,7 +50,7 @@ export class PaymentsController {
 
   @Patch(':id')
   async updatePayment(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() payment: UpdatePaymentDto,
   ) {
     const paymentFound = await this.paymentService.getPaymentById(id);

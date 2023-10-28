@@ -18,11 +18,11 @@ import { Response } from 'express';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/enums/role.enum';
 
+@Auth(Roles.ADMIN)
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
 
-  @Auth(Roles.ADMIN)
   @Post()
   async createUser(@Body() newUser: CreateUserDto, @Res() response: Response) {
     const userFound = await this.userService.getUserByEmail(newUser.email);
@@ -34,11 +34,10 @@ export class UsersController {
     return response.status(201).json(user);
   }
   @Get()
-  @Auth(Roles.ADMIN)
   getAllUsers() {
     return this.userService.getUsers();
   }
-  @Auth(Roles.ADMIN)
+
   @Get(':id')
   async getUser(@Param('id', new ParseUUIDPipe()) id: string) {
     const userFound = await this.userService.getUserById(id);
@@ -47,7 +46,7 @@ export class UsersController {
     }
     return userFound;
   }
-  @Auth(Roles.ADMIN)
+
   @Delete(':id')
   async deleteUser(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.userService.deleteUser(id);
@@ -57,9 +56,7 @@ export class UsersController {
     }
     return result;
   }
-  @Auth(Roles.LOCAL)
-  @Auth(Roles.DELIVERY)
-  @Auth(Roles.CLIENT)
+
   @Patch(':id')
   async updateUser(
     @Param('id', new ParseUUIDPipe()) id: string,

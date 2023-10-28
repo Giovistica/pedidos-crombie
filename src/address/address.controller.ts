@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Post,
   Query,
 } from '@nestjs/common';
@@ -45,7 +46,7 @@ export class AddressController {
   }
 
   @Delete(':id')
-  async deleteAddress(@Param('id') id: string) {
+  async deleteAddress(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.addressService.deleteAddress(id);
 
     if (result.affected === 0) {

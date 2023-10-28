@@ -6,6 +6,7 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  ParseUUIDPipe,
   Patch,
   Post,
 } from '@nestjs/common';
@@ -35,7 +36,7 @@ export class ClientsController {
   }
 
   @Delete(':id')
-  async deleteClient(@Param('id') id: string) {
+  async deleteClient(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.clientService.deleteClient(id);
 
     if (result.affected === 0) {
@@ -46,7 +47,7 @@ export class ClientsController {
 
   @Patch(':id/adress')
   async addAdressToClient(
-    @Param('id') id: string,
+    @Param('id', new ParseUUIDPipe()) id: string,
     @Body() adress: CreateAddressDto,
   ) {
     return this.clientService.AddAdressToClient(adress, id);
