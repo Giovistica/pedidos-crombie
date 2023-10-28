@@ -17,7 +17,7 @@ import { CreateAddressDto } from './dto/createAddressDto';
 export class AddressController {
   constructor(private addressService: AddressService) {}
 
-  @Post() //no valida que todos los campos sean unicos
+  @Post()
   async createAddress(@Body() newAddress: CreateAddressDto) {
     return this.addressService.createAddress(newAddress);
   }

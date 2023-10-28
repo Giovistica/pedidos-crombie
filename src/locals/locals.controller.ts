@@ -19,7 +19,6 @@ import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/enums/role.enum';
 
-@Auth(Roles.LOCAL)
 @Controller('locals')
 export class LocalsController {
   constructor(
@@ -38,14 +37,7 @@ export class LocalsController {
     return this.localService.getLocals();
   }
 
-  @Get(':id')
-  async getLocal(@Param('id') id: string) {
-    const localFound = await this.localService.getLocalById(id);
-    if (!localFound) {
-      throw new HttpException('Local does not exist', HttpStatus.NOT_FOUND);
-    }
-    return localFound;
-  }
+
   @Auth(Roles.CLIENT)
   @Get(':id/menus')
   async getEatablesByMenus(@Param('id') id: string) {
@@ -90,7 +82,6 @@ export class LocalsController {
   @Auth(Roles.CLIENT)
   @Get('city')
   async getLocalsInCity(@Query('') city: findCityDto) {
-    console.log(city);
     return this.localService.getLocalsInCity(city);
   }
 
@@ -108,5 +99,14 @@ export class LocalsController {
     @Body() adress: CreateAddressDto,
   ) {
     return this.localService.AddAdressToLocal(adress, id);
+  }
+
+  @Get(':id')
+  async getLocal(@Param('id') id: string) {
+    const localFound = await this.localService.getLocalById(id);
+    if (!localFound) {
+      throw new HttpException('Local does not exist', HttpStatus.NOT_FOUND);
+    }
+    return localFound;
   }
 }
