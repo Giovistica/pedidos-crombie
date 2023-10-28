@@ -63,6 +63,4 @@ export class LocalsService {
     localFound.address = newAdress;
     return this.localRespository.save(localFound);
   }
-
-  
 }
