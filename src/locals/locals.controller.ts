@@ -19,7 +19,6 @@ import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/enums/role.enum';
 
-@Auth(Roles.LOCAL)
 @Controller('locals')
 export class LocalsController {
   constructor(
@@ -37,7 +36,6 @@ export class LocalsController {
   getAllLocals() {
     return this.localService.getLocals();
   }
-
 
   @Auth(Roles.CLIENT)
   @Get(':id/menus')
@@ -64,6 +62,7 @@ export class LocalsController {
     return menus;
   }
   @Auth(Roles.CLIENT)
+  @Auth(Roles.LOCAL)
   @Get(':id/menusName/:name')
   async getEatablesByMenuName(
     @Param('id') id: string,
@@ -85,7 +84,7 @@ export class LocalsController {
   async getLocalsInCity(@Query('') city: findCityDto) {
     return this.localService.getLocalsInCity(city);
   }
-
+  @Auth(Roles.LOCAL)
   @Patch(':id')
   async updateLocal(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -93,13 +92,13 @@ export class LocalsController {
   ) {
     return this.localService.updateLocal(id, local);
   }
-
+  @Auth(Roles.LOCAL)
   @Patch(':id/address')
   async addAdressToLocal(
     @Param('id') id: string,
-    @Body() adress: CreateAddressDto,
+    @Body() address: CreateAddressDto,
   ) {
-    return this.localService.AddAdressToLocal(adress, id);
+    return this.localService.AddAdressToLocal(address, id);
   }
   @Auth(Roles.ADMIN)
   @Get(':id')
