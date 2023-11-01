@@ -37,7 +37,7 @@ export class LocalsController {
     return this.localService.getLocals();
   }
 
-  @Auth([Roles.CLIENT])
+  @Auth([Roles.CLIENT, Roles.LOCAL])
   @Get(':id/menus')
   async getEatablesByMenus(@Param('id') id: string) {
     const localFound = await this.localService.getLocalById(id);
@@ -47,7 +47,7 @@ export class LocalsController {
     return localFound.menus;
   }
 
-  @Auth([Roles.CLIENT])
+  @Auth([Roles.CLIENT, Roles.LOCAL])
   @Get(':id/menusType/:type')
   async getEatablesByMenuType(
     @Param('id') id: string,
@@ -99,7 +99,7 @@ export class LocalsController {
   ) {
     return this.localService.AddAdressToLocal(address, id);
   }
-  @Auth([Roles.ADMIN])
+  @Auth([Roles.LOCAL])
   @Get(':id')
   async getLocal(@Param('id') id: string) {
     const localFound = await this.localService.getLocalById(id);
