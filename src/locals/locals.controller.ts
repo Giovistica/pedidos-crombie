@@ -61,8 +61,7 @@ export class LocalsController {
 
     return menus;
   }
-  @Auth(Roles.CLIENT)
-  @Auth(Roles.LOCAL)
+ 
   @Get(':id/menusName/:name')
   async getEatablesByMenuName(
     @Param('id') id: string,
