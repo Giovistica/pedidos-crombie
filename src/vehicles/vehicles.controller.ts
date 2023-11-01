@@ -15,7 +15,7 @@ import { CreateVehicleDto } from './dto/createVehicleDto';
 import { Roles } from 'src/enums/role.enum';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 
-@Auth(Roles.DELIVERY)
+@Auth([Roles.DELIVERY])
 @Controller('vehicles')
 export class VehiclesController {
   constructor(private VehicleService: VehiclesService) {}
@@ -27,7 +27,7 @@ export class VehiclesController {
   ) {
     return this.VehicleService.createVehicle(vehicle, id);
   }
-  @Auth(Roles.ADMIN)
+  @Auth([Roles.ADMIN])
   @Get()
   getAllVehicles() {
     return this.VehicleService.getVehicles();

@@ -26,18 +26,18 @@ export class LocalsController {
     private eatableService: EatablesService,
   ) {}
 
-  @Auth(Roles.ADMIN)
+  @Auth([Roles.ADMIN])
   @Post()
   createLocal() {
     return this.localService.createLocal();
   }
-  @Auth(Roles.ADMIN)
+  @Auth([Roles.ADMIN])
   @Get()
   getAllLocals() {
     return this.localService.getLocals();
   }
 
-  @Auth(Roles.CLIENT)
+  @Auth([Roles.CLIENT])
   @Get(':id/menus')
   async getEatablesByMenus(@Param('id') id: string) {
     const localFound = await this.localService.getLocalById(id);
@@ -47,7 +47,7 @@ export class LocalsController {
     return localFound.menus;
   }
 
-  @Auth(Roles.CLIENT)
+  @Auth([Roles.CLIENT])
   @Get(':id/menusType/:type')
   async getEatablesByMenuType(
     @Param('id') id: string,
@@ -61,7 +61,7 @@ export class LocalsController {
 
     return menus;
   }
- 
+  @Auth([Roles.CLIENT, Roles.LOCAL])
   @Get(':id/menusName/:name')
   async getEatablesByMenuName(
     @Param('id') id: string,
@@ -78,12 +78,12 @@ export class LocalsController {
 
     return menus;
   }
-  @Auth(Roles.CLIENT)
+  @Auth([Roles.CLIENT])
   @Get('city')
   async getLocalsInCity(@Query('') city: findCityDto) {
     return this.localService.getLocalsInCity(city);
   }
-  @Auth(Roles.LOCAL)
+  @Auth([Roles.LOCAL])
   @Patch(':id')
   async updateLocal(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -91,7 +91,7 @@ export class LocalsController {
   ) {
     return this.localService.updateLocal(id, local);
   }
-  @Auth(Roles.LOCAL)
+  @Auth([Roles.LOCAL])
   @Patch(':id/address')
   async addAdressToLocal(
     @Param('id') id: string,
@@ -99,7 +99,7 @@ export class LocalsController {
   ) {
     return this.localService.AddAdressToLocal(address, id);
   }
-  @Auth(Roles.ADMIN)
+  @Auth([Roles.ADMIN])
   @Get(':id')
   async getLocal(@Param('id') id: string) {
     const localFound = await this.localService.getLocalById(id);

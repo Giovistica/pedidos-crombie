@@ -18,7 +18,7 @@ import { Response } from 'express';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/enums/role.enum';
 
-@Auth(Roles.ADMIN)
+@Auth([Roles.ADMIN])
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}

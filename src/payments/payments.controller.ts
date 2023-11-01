@@ -15,7 +15,7 @@ import { UpdatePaymentDto } from './dto/updatePaymentDto';
 import { Roles } from 'src/enums/role.enum';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 
-@Auth(Roles.ADMIN)
+@Auth([Roles.ADMIN])
 @Controller('payments')
 export class PaymentsController {
   constructor(private paymentService: PaymentsService) {}
