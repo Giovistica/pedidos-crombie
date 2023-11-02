@@ -23,7 +23,9 @@ export class Delivery {
   @JoinColumn()
   profileReviews: ProfileReviews;
 
-  @OneToOne(() => Vehicle)
+  @OneToOne(() => Vehicle, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn()
   vehicle: Vehicle;
 }

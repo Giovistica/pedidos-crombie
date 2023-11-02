@@ -14,9 +14,10 @@ export class VehiclesService {
 
   async createVehicle(vehicle: CreateVehicleDto, id: string) {
     const newVehicle = this.vehicleRespository.create(vehicle);
+    await this.vehicleRespository.save(newVehicle);
     const deliveryFound = await this.deliveryService.getDeliveryById(id);
     deliveryFound.vehicle = newVehicle;
-    return this.vehicleRespository.save(newVehicle);
+    return await this.deliveryService.saveDelivery(deliveryFound);
   }
   getVehicles() {
     return this.vehicleRespository.find();
@@ -33,6 +34,6 @@ export class VehiclesService {
   }
 
   async updateVehicle(id: string, vehicle: CreateVehicleDto) {
-    return await this.vehicleRespository.update({ id }, vehicle);
+    return await this.vehicleRespository.save(vehicle);
   }
 }

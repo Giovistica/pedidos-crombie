@@ -27,6 +27,9 @@ export class DeliverysService {
       where: { id },
     });
   }
+  async saveDelivery(delivery: Delivery) {
+    return await this.deliveryRespository.save(delivery);
+  }
 
   deleteDelivery(id: string) {
     return this.deliveryRespository.delete(id);
