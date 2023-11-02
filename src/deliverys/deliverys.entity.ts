@@ -25,6 +25,7 @@ export class Delivery {
 
   @OneToOne(() => Vehicle, {
     onDelete: 'CASCADE',
+    eager: true,
   })
   @JoinColumn()
   vehicle: Vehicle;
