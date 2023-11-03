@@ -55,8 +55,8 @@ export class OrdersController {
     return result;
   }
 
-  @Patch(':id/adress')
-  async updateOrderAdress(
+  @Patch(':id/address')
+  async updateOrderAddress(
     @Param('id', new ParseUUIDPipe()) id: string,
     @Body() adress: CreateAddressDto,
   ) {
