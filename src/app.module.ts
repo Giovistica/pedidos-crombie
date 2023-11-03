@@ -17,7 +17,7 @@ import { EatablesModule } from './eatables/eatables.module';
 import { Client } from './clients/client.entity';
 import { Delivery } from './deliverys/deliverys.entity';
 import { Eatable } from './eatables/eatables.entity';
-import { Order } from './orders/orders.entity';
+import { Orders } from './orders/orders.entity';
 import { Payment } from './payments/payments.entity';
 import { Local } from './locals/locals.entity';
 import { Review } from './reviews/reviews.entity';
@@ -43,7 +43,7 @@ import { AuthModule } from './auth/auth.module';
         Address,
         Delivery,
         Eatable,
-        Order,
+        Orders,
         Payment,
         Local,
         ProfileReviews,

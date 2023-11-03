@@ -4,11 +4,11 @@ import { Eatable } from './eatables.entity';
 import { EatablesService } from './eatables.service';
 import { EatablesController } from './eatables.controller';
 import { LocalsModule } from 'src/locals/locals.module';
-import { Order } from 'src/orders/orders.entity';
+import { Orders } from 'src/orders/orders.entity';
 import { Local } from 'src/locals/locals.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Eatable, Local, Order]), LocalsModule],
+  imports: [TypeOrmModule.forFeature([Eatable, Local, Orders]), LocalsModule],
   providers: [EatablesService],
   controllers: [EatablesController],
   exports: [EatablesService],

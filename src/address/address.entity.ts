@@ -1,4 +1,4 @@
-import { Order } from 'src/orders/orders.entity';
+import { Orders } from 'src/orders/orders.entity';
 import { Column, Entity, Generated, OneToMany, PrimaryColumn } from 'typeorm';
 
 @Entity()
@@ -28,6 +28,6 @@ export class Address {
   @Column({ default: '-' })
   apartment: string;
 
-  @OneToMany(() => Order, (order) => order.address)
-  orders: Array<Order>;
+  @OneToMany(() => Orders, (order) => order.address)
+  orders: Array<Orders>;
 }

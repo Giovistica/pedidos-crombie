@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Order } from './orders.entity';
+import { Orders } from './orders.entity';
 import { Repository } from 'typeorm';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
 import { ClientsService } from 'src/clients/clients.service';
@@ -19,7 +19,7 @@ import { Status } from 'src/enums/status.enum';
 @Injectable()
 export class OrdersService {
   constructor(
-    @InjectRepository(Order) private orderRespository: Repository<Order>,
+    @InjectRepository(Orders) private orderRespository: Repository<Orders>,
     private clientService: ClientsService,
     private localService: LocalsService,
     private addressService: AddressService,
@@ -55,13 +55,13 @@ export class OrdersService {
   deleteOrder(id: string) {
     return this.orderRespository.delete(id);
   }
-  async updateOrderAdress(order: Order, adress: CreateAddressDto) {
+  async updateOrderAdress(order: Orders, adress: CreateAddressDto) {
     const newAdress = await this.addressService.createAddress(adress);
     order.address = newAdress;
     return this.orderRespository.save(order);
   }
 
-  async updateOrderDelivery(order: Order, delivery: UpdateOrderDeliveryDto) {
+  async updateOrderDelivery(order: Orders, delivery: UpdateOrderDeliveryDto) {
     const deliveryFound = await this.deliveryService.getDeliveryById(
       delivery.idDelivery,
     );
@@ -72,7 +72,7 @@ export class OrdersService {
   async updateOrderStatus(id: string, status: UpdateOrderStatusDto) {
     return await this.orderRespository.update({ id }, status);
   }
-  async orderEatableAdd(order: Order, idEatable: string) {
+  async orderEatableAdd(order: Orders, idEatable: string) {
     const eatableFound: Eatable =
       await this.eatableService.getEatableById(idEatable);
 
@@ -82,7 +82,7 @@ export class OrdersService {
     const newOrder = this.orderRespository.save(order);
     return newOrder;
   }
-  async orderEatableRemove(order: Order, idEatable: string) {
+  async orderEatableRemove(order: Orders, idEatable: string) {
     const eatableFound: Eatable =
       await this.eatableService.getEatableById(idEatable);
 
@@ -95,7 +95,7 @@ export class OrdersService {
     return newOrder;
   }
 
-  calculatedPrice(order: Order) {
+  calculatedPrice(order: Orders) {
     let totalPrice = 0;
     order.menuList.forEach((eatable) => {
       totalPrice += eatable.price;

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { Order } from './orders.entity';
+import { Orders } from './orders.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
@@ -19,7 +19,7 @@ import { Address } from 'src/address/address.entity';
 @Module({
   imports: [
     TypeOrmModule.forFeature([
-      Order,
+      Orders,
       Client,
       Local,
       Address,

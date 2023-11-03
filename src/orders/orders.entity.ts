@@ -18,8 +18,8 @@ import {
 } from 'typeorm';
 import { Status } from 'src/enums/status.enum';
 
-@Entity('order')
-export class Order {
+@Entity()
+export class Orders {
   @PrimaryColumn()
   @Generated('uuid')
   id: string;

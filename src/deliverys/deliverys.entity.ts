@@ -1,4 +1,4 @@
-import { Order } from 'src/orders/orders.entity';
+import { Orders } from 'src/orders/orders.entity';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 import { Vehicle } from 'src/vehicles/vehicles.entity';
 import {
@@ -16,8 +16,8 @@ export class Delivery {
   @Generated('uuid')
   id: string;
 
-  @OneToMany(() => Order, (order) => order.delivery)
-  ordersHistory: Array<Order>[];
+  @OneToMany(() => Orders, (order) => order.delivery)
+  ordersHistory: Array<Orders>[];
 
   @OneToOne(() => ProfileReviews, { eager: true })
   @JoinColumn()

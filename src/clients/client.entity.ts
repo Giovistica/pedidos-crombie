@@ -1,5 +1,5 @@
 import { Address } from 'src/address/address.entity';
-import { Order } from 'src/orders/orders.entity';
+import { Orders } from 'src/orders/orders.entity';
 import { Review } from 'src/reviews/reviews.entity';
 
 import {
@@ -17,8 +17,8 @@ export class Client {
   @Generated('uuid')
   id: string;
 
-  @OneToMany(() => Order, (order) => order.client)
-  ordersHistory: Order[];
+  @OneToMany(() => Orders, (order) => order.client)
+  ordersHistory: Orders[];
 
   @OneToMany(() => Review, (review) => review.reviewer)
   reviewsMade: Array<Review>;

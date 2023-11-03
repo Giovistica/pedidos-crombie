@@ -1,7 +1,7 @@
 import { Address } from 'src/address/address.entity';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { LocalType } from 'src/enums/local.enum';
-import { Order } from 'src/orders/orders.entity';
+import { Orders } from 'src/orders/orders.entity';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 
 import {
@@ -29,8 +29,8 @@ export class Local {
   @Column({ type: 'enum', enum: LocalType, default: LocalType.grocery })
   type: LocalType;
 
-  @OneToMany(() => Order, (order) => order.local)
-  ordersHistory: Array<Order>[];
+  @OneToMany(() => Orders, (order) => order.local)
+  ordersHistory: Array<Orders>[];
 
   @OneToOne(() => ProfileReviews)
   @JoinColumn()
