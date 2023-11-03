@@ -9,7 +9,10 @@ import {
   Post,
 } from '@nestjs/common';
 import { ProfileReviewsService } from './profileReviews.service';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { Roles } from 'src/enums/role.enum';
 
+@Auth([Roles.ADMIN])
 @Controller('profileReviews')
 export class ProfileReviewsController {
   constructor(private profileReviewsService: ProfileReviewsService) {}

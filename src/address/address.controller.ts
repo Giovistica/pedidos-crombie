@@ -12,25 +12,20 @@ import {
 } from '@nestjs/common';
 import { AddressService } from './address.service';
 import { CreateAddressDto } from './dto/createAddressDto';
+import { Roles } from 'src/enums/role.enum';
+import { Auth } from 'src/auth/decorators/auth.decorators';
 
 @Controller('address')
 export class AddressController {
   constructor(private addressService: AddressService) {}
 
+  @Auth([Roles.CLIENT, Roles.LOCAL])
   @Post()
   async createAddress(@Body() newAddress: CreateAddressDto) {
     return this.addressService.createAddress(newAddress);
   }
 
-  // @Get(':id')
-  // async getAddressById(@Param('id') id: string) {
-  //   const addressFound = await this.addressService.getAddressById(id);
-  //   if (!addressFound) {
-  //     throw new HttpException('address does not exist', HttpStatus.NOT_FOUND);
-  //   }
-  //   return addressFound;
-  // }
-
+  @Auth([Roles.CLIENT, Roles.LOCAL])
   @Get('')
   async getaddressByCampos(@Query() address: CreateAddressDto) {
     const addressFound = await this.addressService.getAddressByCampos(address);
@@ -40,11 +35,12 @@ export class AddressController {
     return addressFound;
   }
 
+  @Auth([Roles.ADMIN])
   @Get()
   getAlladdresses() {
     return this.addressService.getAddress();
   }
-
+  @Auth([Roles.ADMIN])
   @Delete(':id')
   async deleteAddress(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.addressService.deleteAddress(id);

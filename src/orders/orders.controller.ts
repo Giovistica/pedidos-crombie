@@ -17,25 +17,31 @@ import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
 import { findCityDto } from 'src/address/dto/findCityDto';
 import { CreateAddressDto } from 'src/address/dto/createAddressDto';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { Roles } from 'src/enums/role.enum';
 
 @Controller('orders')
 export class OrdersController {
   constructor(private orderService: OrdersService) {}
-
+  
+  @Auth([Roles.CLIENT])
   @Post()
   async createOrder(@Body() order: CreateOrderDto) {
     return await this.orderService.createOrder(order);
   }
+  @Auth([Roles.ADMIN])
   @Get()
   getAllOrders() {
     return this.orderService.getOrders();
   }
-
+  
+  @Auth([Roles.DELIVERY])
   @Get('prep/city')
   async getOrdersPrep(@Query() city: findCityDto) {
     return await this.orderService.getOrdersOnPrep(city);
   }
 
+  @Auth([Roles.CLIENT, Roles.DELIVERY, Roles.LOCAL])
   @Get(':id')
   async getOrder(@Param('id', new ParseUUIDPipe()) id: string) {
     const orderFound = await this.orderService.getOrderById(id);
@@ -45,6 +51,7 @@ export class OrdersController {
     return orderFound;
   }
 
+  @Auth([Roles.CLIENT])
   @Delete(':id')
   async deleteOrder(@Param('id', new ParseUUIDPipe()) id: string) {
     const result = await this.orderService.deleteOrder(id);
@@ -55,6 +62,7 @@ export class OrdersController {
     return result;
   }
 
+  @Auth([Roles.CLIENT])
   @Patch(':id/address')
   async updateOrderAddress(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -66,7 +74,7 @@ export class OrdersController {
     }
     return this.orderService.updateOrderAdress(orderFound, adress);
   }
-
+  @Auth([Roles.DELIVERY])
   @Patch(':id/delivery')
   async updateOrderDelivery(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -78,6 +86,8 @@ export class OrdersController {
     }
     return this.orderService.updateOrderDelivery(orderFound, idDelivery);
   }
+
+  @Auth([Roles.CLIENT, Roles.DELIVERY, Roles.LOCAL])
   @Patch(':id/status')
   async updateOrderStatus(
     @Param('id', new ParseUUIDPipe()) id: string,
@@ -92,7 +102,7 @@ export class OrdersController {
       throw new HttpException('Status updated!', HttpStatus.CREATED);
     }
   }
-
+  @Auth([Roles.CLIENT])
   @Patch(':id/eatable')
   async addEatableToOrder(
     @Param('id', new ParseUUIDPipe()) idOrder: string,
@@ -109,6 +119,8 @@ export class OrdersController {
 
     return orderEatableAdded;
   }
+
+  @Auth([Roles.CLIENT])
   @Delete(':id/eatable')
   async deleteEatableToOrder(
     @Param('id', new ParseUUIDPipe()) idOrder: string,

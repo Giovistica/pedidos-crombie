@@ -8,15 +8,20 @@ import {
   Post,
 } from '@nestjs/common';
 import { DeliverysService } from './deliverys.service';
+import { Roles } from 'src/enums/role.enum';
+import { Auth } from 'src/auth/decorators/auth.decorators';
 
+@Auth([Roles.DELIVERY])
 @Controller('deliverys')
 export class DeliverysController {
   constructor(private deliveryService: DeliverysService) {}
 
+  @Auth([Roles.ADMIN])
   @Post()
   createDelivery() {
     return this.deliveryService.createDelivery();
   }
+  @Auth([Roles.ADMIN])
   @Get()
   getAllDeliverys() {
     return this.deliveryService.getDeliverys();

@@ -11,11 +11,14 @@ import {
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/createReviewDto';
+import { Auth } from 'src/auth/decorators/auth.decorators';
+import { Roles } from 'src/enums/role.enum';
 
 @Controller('reviews')
 export class ReviewsController {
   constructor(private reviewService: ReviewsService) {}
 
+  @Auth([Roles.CLIENT])
   @Post('')
   async createReview(
     //ojo que si no se pasan bien los datos guarda cualquier cosa
@@ -31,16 +34,20 @@ export class ReviewsController {
     this.reviewService.calculateAverage(idUser);
     return await this.reviewService.getReviewById(newReview.id);
   }
+  
+  @Auth([Roles.ADMIN])
   @Get()
   getAllReviews() {
     return this.reviewService.getReviews();
   }
 
+  @Auth([Roles.LOCAL, Roles.DELIVERY])
   @Get(':id')
   getAll30Reviews(@Param('id') id: string) {
     return this.reviewService.getReviewsByProfileReviews(id);
   }
 
+  @Auth([Roles.LOCAL, Roles.DELIVERY])
   @Get(':id')
   async getReview(@Param('id') id: string) {
     const reviewFound = await this.reviewService.getReviewById(id);
@@ -50,6 +57,7 @@ export class ReviewsController {
     return reviewFound;
   }
 
+  @Auth([Roles.ADMIN])
   @Delete(':id')
   async deleteReview(@Param('id') id: string) {
     const result = await this.reviewService.deleteReview(id);
