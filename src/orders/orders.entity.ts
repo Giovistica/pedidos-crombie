@@ -18,7 +18,7 @@ import {
 } from 'typeorm';
 import { Status } from 'src/enums/status.enum';
 
-@Entity('`order`')
+@Entity('orders')
 export class Order {
   @PrimaryColumn()
   @Generated('uuid')
