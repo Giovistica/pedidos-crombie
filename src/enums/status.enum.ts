@@ -7,5 +7,4 @@ export enum Status {
   readytotake = 'READY', //verde medio se le asigno delivery
   onitsway = 'ONITSWAY', //verde oscuro el delivery lo retiro
   received = 'RECEIVED', //fucsia llego a destino
-  
 }

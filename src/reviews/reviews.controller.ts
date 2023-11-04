@@ -34,7 +34,7 @@ export class ReviewsController {
     this.reviewService.calculateAverage(idUser);
     return await this.reviewService.getReviewById(newReview.id);
   }
-  
+
   @Auth([Roles.ADMIN])
   @Get()
   getAllReviews() {

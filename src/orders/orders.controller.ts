@@ -19,11 +19,15 @@ import { findCityDto } from 'src/address/dto/findCityDto';
 import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/enums/role.enum';
+import { SseService } from 'src/sse/sse.service';
 
 @Controller('orders')
 export class OrdersController {
-  constructor(private orderService: OrdersService) {}
-  
+  constructor(
+    private orderService: OrdersService,
+    private sseService: SseService,
+  ) {}
+
   @Auth([Roles.CLIENT])
   @Post()
   async createOrder(@Body() order: CreateOrderDto) {
@@ -34,7 +38,7 @@ export class OrdersController {
   getAllOrders() {
     return this.orderService.getOrders();
   }
-  
+
   @Auth([Roles.DELIVERY])
   @Get('prep/city')
   async getOrdersPrep(@Query() city: findCityDto) {
@@ -98,9 +102,11 @@ export class OrdersController {
       throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
     }
     const orderUpdated = await this.orderService.updateOrderStatus(id, status);
-    if (orderUpdated.affected === 1) {
+    if (orderUpdated.status === status.status) {
       throw new HttpException('Status updated!', HttpStatus.CREATED);
     }
+    this.sseService.derivateNotification(orderUpdated);
+    //no devuelve nada
   }
   @Auth([Roles.CLIENT])
   @Patch(':id/eatable')

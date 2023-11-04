@@ -27,6 +27,7 @@ import { ProfileReviewsModule } from './profileReviews/profileReviews.module';
 import { ProfileReviews } from './profileReviews/profileReviews.entity';
 import { AuthModule } from './auth/auth.module';
 import { SseController } from './sse/sse.controller';
+import { SseModule } from './sse/sse.module';
 
 @Module({
   imports: [
@@ -66,6 +67,7 @@ import { SseController } from './sse/sse.controller';
     EatablesModule,
     ProfileReviewsModule,
     AuthModule,
+    SseModule,
   ],
   controllers: [AppController, SseController],
   providers: [AppService],

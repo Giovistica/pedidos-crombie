@@ -15,6 +15,7 @@ import { Payment } from 'src/payments/payments.entity';
 import { PaymentsModule } from 'src/payments/payments.module';
 import { Local } from 'src/locals/locals.entity';
 import { Address } from 'src/address/address.entity';
+import { SseModule } from 'src/sse/sse.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { Address } from 'src/address/address.entity';
     DeliverysModule,
     EatablesModule,
     PaymentsModule,
+    SseModule,
   ],
   providers: [OrdersService],
   controllers: [OrdersController],

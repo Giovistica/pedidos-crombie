@@ -70,7 +70,8 @@ export class OrdersService {
   }
 
   async updateOrderStatus(id: string, status: UpdateOrderStatusDto) {
-    return await this.orderRespository.update({ id }, status);
+    await this.orderRespository.update({ id }, status);
+    return await this.getOrderById(id);
   }
   async orderEatableAdd(order: Orders, idEatable: string) {
     const eatableFound: Eatable =
