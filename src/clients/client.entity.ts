@@ -17,8 +17,8 @@ export class Client {
   @Generated('uuid')
   id: string;
 
-  @OneToMany(() => Orders, (order) => order.client)
-  ordersHistory: Orders[];
+  @OneToMany(() => Orders, (order) => order.client, { eager: true })
+   ordersHistory: Orders[];
 
   @OneToMany(() => Review, (review) => review.reviewer)
   reviewsMade: Array<Review>;
