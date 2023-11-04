@@ -26,6 +26,7 @@ import { Address } from './address/address.entity';
 import { ProfileReviewsModule } from './profileReviews/profileReviews.module';
 import { ProfileReviews } from './profileReviews/profileReviews.entity';
 import { AuthModule } from './auth/auth.module';
+import { SseController } from './sse/sse.controller';
 
 @Module({
   imports: [
@@ -66,7 +67,7 @@ import { AuthModule } from './auth/auth.module';
     ProfileReviewsModule,
     AuthModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, SseController],
   providers: [AppService],
 })
 export class AppModule {}

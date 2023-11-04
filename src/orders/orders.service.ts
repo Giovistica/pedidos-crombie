@@ -104,7 +104,7 @@ export class OrdersService {
   }
   async getOrdersOnPrep(city: findCityDto) {
     const orders = await this.orderRespository.find({
-      where: { status: Status.prep },
+      where: { status: Status.accepted },
     });
 
     const result = orders.filter(

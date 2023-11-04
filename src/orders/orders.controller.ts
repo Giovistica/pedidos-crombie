@@ -116,7 +116,7 @@ export class OrdersController {
       orderFound,
       idEatable,
     );
-
+    console.log(orderEatableAdded);
     return orderEatableAdded;
   }
 
