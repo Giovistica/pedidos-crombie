@@ -14,7 +14,6 @@ export class SseService {
     res.setHeader('Cache-Control', 'no-cache');
     res.setHeader('Connection', 'keep-alive');
 
-
     this.sseConnections.push({
       response: res,
       receiverId: id,

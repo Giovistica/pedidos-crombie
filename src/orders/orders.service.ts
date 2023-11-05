@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Orders } from './orders.entity';
-import { Repository } from 'typeorm';
+import { Repository, SelectQueryBuilder } from 'typeorm';
 import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
 import { ClientsService } from 'src/clients/clients.service';
 import { CreateOrderDto } from './dto/createOrderDto';
@@ -103,17 +103,34 @@ export class OrdersService {
     });
     return totalPrice;
   }
-  async getOrdersAccepted(city: findCityDto) {
-    const orders = await this.orderRespository.find({
-      where: { status: Status.accepted },
-    });
+  // async getOrdersAccepted(dto: findCityDto) {
+  //   const city = dto;
+  //   const orders = await this.orderRespository.find({
+  //     where: { status: Status.accepted },
+  //   });
+  //   console.log(city);
+  //   const result = orders.filter(
+  //     (order) =>
+  //       order.address.city == city.city &&
+  //       order.address.country == city.country &&
+  //       order.address.state == city.state,
+  //   );
 
-    const result = orders.filter(
-      (order) =>
-        order.address.city == city.city &&
-        order.address.country == city.country &&
-        order.address.state == city.state,
-    );
-    return result;
+  //   return result;
+  // }
+  async getOrdersAccepted(dto: findCityDto): Promise<Orders[]> {
+    const { city, country, state } = dto;
+
+    const query: SelectQueryBuilder<Orders> =
+      this.orderRespository.createQueryBuilder('orders');
+
+      query
+      .leftJoinAndSelect('orders.address', 'address')
+      .where('orders.status = :status', { status: Status.accepted })
+      .andWhere('address.city = :city', { city })
+      .andWhere('address.country = :country', { country })
+      .andWhere('address.state = :state', { state });
+
+    return query.getMany();
   }
 }
