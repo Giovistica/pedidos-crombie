@@ -76,7 +76,7 @@ export class OrdersController {
     if (!orderFound) {
       throw new HttpException('Order does not exist', HttpStatus.NOT_FOUND);
     }
-    return this.orderService.updateOrderAdress(orderFound, adress);
+    return this.orderService.updateOrderAddress(orderFound, adress);
   }
   @Auth([Roles.DELIVERY])
   @Patch(':id/delivery')

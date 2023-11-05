@@ -55,7 +55,7 @@ export class OrdersService {
   deleteOrder(id: string) {
     return this.orderRespository.delete(id);
   }
-  async updateOrderAdress(order: Orders, adress: CreateAddressDto) {
+  async updateOrderAddress(order: Orders, adress: CreateAddressDto) {
     const newAdress = await this.addressService.createAddress(adress);
     order.address = newAdress;
     return this.orderRespository.save(order);
