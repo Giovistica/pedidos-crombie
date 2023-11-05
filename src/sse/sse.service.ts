@@ -52,6 +52,9 @@ export class SseService {
     const status = order.status;
     switch (status) {
       case Status.waiting:
+        console.log('estoy en waiting');
+        this.sendNotification(order, order.client.id);
+
         break;
       case Status.send:
         this.sendNotification(order, order.local.id);
