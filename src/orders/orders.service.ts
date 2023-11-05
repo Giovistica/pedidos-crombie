@@ -103,7 +103,7 @@ export class OrdersService {
     });
     return totalPrice;
   }
-  async getOrdersOnPrep(city: findCityDto) {
+  async getOrdersAccepted(city: findCityDto) {
     const orders = await this.orderRespository.find({
       where: { status: Status.accepted },
     });

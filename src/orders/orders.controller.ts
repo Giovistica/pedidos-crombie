@@ -40,9 +40,9 @@ export class OrdersController {
   }
 
   @Auth([Roles.DELIVERY])
-  @Get('prep/city')
-  async getOrdersPrep(@Query() city: findCityDto) {
-    return await this.orderService.getOrdersOnPrep(city);
+  @Get('accepted')
+  async getOrdersAccepted(@Query() city: findCityDto) {
+    return await this.orderService.getOrdersAccepted(city);
   }
 
   @Auth([Roles.CLIENT, Roles.DELIVERY, Roles.LOCAL])
@@ -105,8 +105,8 @@ export class OrdersController {
     if (orderUpdated.status === status.status) {
       throw new HttpException('Status updated!', HttpStatus.CREATED);
     }
-    this.sseService.derivateNotification(orderUpdated);
-    //no devuelve nada
+    //this.sseService.derivateNotification(orderUpdated);
+    //no devuelve más nada
   }
   @Auth([Roles.CLIENT])
   @Patch(':id/eatable')
