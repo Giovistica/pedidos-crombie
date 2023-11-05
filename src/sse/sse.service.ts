@@ -44,10 +44,9 @@ export class SseService {
 
     if (connection) {
       const message = `La orden ${order.id} ha cambiado a status: ${order.status}.`;
-      connection.response.write(`data: ${message}\n\n`);
+      connection.response.write(`data: {message: ${message}}\n\n`);
     }
   }
-
   derivateNotification(order: Orders) {
     const status = order.status;
     switch (status) {
