@@ -6,7 +6,6 @@ import { UpdateOrderStatusDto } from './dto/updeteOrderDto';
 import { ClientsService } from 'src/clients/clients.service';
 import { CreateOrderDto } from './dto/createOrderDto';
 import { DeliverysService } from 'src/deliverys/deliverys.service';
-import { UpdateOrderDeliveryDto } from './dto/updateOrderDeliveryDto';
 import { Eatable } from 'src/eatables/eatables.entity';
 import { EatablesService } from 'src/eatables/eatables.service';
 import { PaymentsService } from 'src/payments/payments.service';
