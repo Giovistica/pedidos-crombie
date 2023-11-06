@@ -97,7 +97,7 @@ export class OrdersController {
   @Patch(':id1/delivery/:id2')
   async updateOrderDelivery(
     @Param('id1', new ParseUUIDPipe()) idOrder: string,
-    @Param(':id2', new ParseUUIDPipe()) idDelivery: string,
+    @Param('id2', new ParseUUIDPipe()) idDelivery: string,
   ) {
     const orderFound = await this.orderService.getOrderById(idOrder);
     if (!orderFound) {
