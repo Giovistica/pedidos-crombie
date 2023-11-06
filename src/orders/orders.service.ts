@@ -61,10 +61,9 @@ export class OrdersService {
     return this.orderRespository.save(order);
   }
 
-  async updateOrderDelivery(order: Orders, delivery: UpdateOrderDeliveryDto) {
-    const deliveryFound = await this.deliveryService.getDeliveryById(
-      delivery.idDelivery,
-    );
+  async updateOrderDelivery(order: Orders, idDelivery: string) {
+    const deliveryFound =
+      await this.deliveryService.getDeliveryById(idDelivery);
     order.delivery = deliveryFound;
     return this.orderRespository.save(order);
   }
