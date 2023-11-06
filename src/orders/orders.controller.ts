@@ -44,7 +44,23 @@ export class OrdersController {
   async getOrdersAccepted(@Query() city: findCityDto) {
     return await this.orderService.getOrdersAccepted(city);
   }
-
+  @Auth([Roles.CLIENT, Roles.DELIVERY, Roles.LOCAL])
+  @Get(':id/:type')
+  async getOrderLast30Days(
+    @Param('id', new ParseUUIDPipe()) id: string,
+    @Param('type') type: 'client' | 'local' | 'delivery',
+  ) {
+    try {
+      const ordersFound = await this.orderService.getOrdersLast30DaysByUser(
+        id,
+        type,
+      );
+      return ordersFound;
+    } catch (error) {
+      console.log('Se ha producido un error:', error.message);
+      throw new Error('Ha ocurrido un error en la solicitud');
+    }
+  }
   @Auth([Roles.CLIENT, Roles.DELIVERY, Roles.LOCAL])
   @Get(':id')
   async getOrder(@Param('id', new ParseUUIDPipe()) id: string) {

@@ -124,12 +124,29 @@ export class OrdersService {
     const query: SelectQueryBuilder<Orders> =
       this.orderRespository.createQueryBuilder('orders');
 
-      query
+    query
       .leftJoinAndSelect('orders.address', 'address')
       .where('orders.status = :status', { status: Status.accepted })
       .andWhere('address.city = :city', { city })
       .andWhere('address.country = :country', { country })
       .andWhere('address.state = :state', { state });
+
+    return query.getMany();
+  }
+  async getOrdersLast30DaysByUser(
+    userId: string,
+    userType: 'local' | 'client' | 'delivery',
+  ): Promise<Orders[]> {
+    const thirtyDaysAgo = new Date();
+    thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+
+    const query: SelectQueryBuilder<Orders> =
+      this.orderRespository.createQueryBuilder('orders');
+
+    query
+      .where('order.createdAt >= :thirtyDaysAgo', { thirtyDaysAgo })
+      .andWhere(`order.${userType}Id = :userId`, { userId })
+      .getMany();
 
     return query.getMany();
   }
