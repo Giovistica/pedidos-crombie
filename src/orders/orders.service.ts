@@ -144,7 +144,6 @@ export class OrdersService {
     query
       .where('orders.date >= :thirtyDaysAgo', { thirtyDaysAgo })
       .andWhere(`orders.${userType}Id = :userId`, { userId })
-      .andWhere('orders.status = :status', { status: 'ACCEPTED' })
       .getMany();
 
     return query.getMany();
