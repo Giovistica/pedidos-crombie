@@ -142,8 +142,8 @@ export class OrdersService {
       this.orderRespository.createQueryBuilder('orders');
 
     query
-      .where('order.createdAt >= :thirtyDaysAgo', { thirtyDaysAgo })
-      .andWhere(`order.${userType}Id = :userId`, { userId })
+      .where('orders.date >= :thirtyDaysAgo', { thirtyDaysAgo })
+      .andWhere(`orders.${userType}Id = :userId`, { userId })
       .getMany();
 
     return query.getMany();

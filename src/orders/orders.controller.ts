@@ -18,13 +18,12 @@ import { findCityDto } from 'src/address/dto/findCityDto';
 import { CreateAddressDto } from 'src/address/dto/createAddressDto';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 import { Roles } from 'src/enums/role.enum';
-import { SseService } from 'src/sse/sse.service';
+//import { SseService } from 'src/sse/sse.service';
 
 @Controller('orders')
 export class OrdersController {
   constructor(
-    private orderService: OrdersService,
-    private sseService: SseService,
+    private orderService: OrdersService, //private sseService: SseService,
   ) {}
 
   @Auth([Roles.CLIENT])
