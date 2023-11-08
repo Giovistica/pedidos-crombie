@@ -9,7 +9,7 @@ import { ClientsModule } from './clients/clients.module';
 import { OrdersModule } from './orders/orders.module';
 import { LocalsModule } from './locals/locals.module';
 import { DeliverysModule } from './deliverys/deliverys.module';
-import { RewiesModule } from './reviews/reviews.module';
+import { ReviewsModule } from './reviews/reviews.module';
 import { PaymentsModule } from './payments/payments.module';
 import { VehiclesModule } from './vehicles/vehicles.module';
 import { AddressModule } from './address/address.module';
@@ -60,7 +60,7 @@ import { SseModule } from './sse/sse.module';
     OrdersModule,
     LocalsModule,
     DeliverysModule,
-    RewiesModule,
+    ReviewsModule,
     PaymentsModule,
     VehiclesModule,
     AddressModule,

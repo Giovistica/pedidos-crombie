@@ -19,17 +19,19 @@ export class ReviewsController {
   constructor(private reviewService: ReviewsService) {}
 
   @Auth([Roles.CLIENT])
-  @Post('')
+  @Post(':idClient/:idProfile/:idOrder')
   async createReview(
     //ojo que si no se pasan bien los datos guarda cualquier cosa
-    @Query('idClient') idClient: string,
-    @Query('idUser') idUser: string,
+    @Param('idClient') idClient: string,
+    @Param('idProfile') idUser: string,
+    @Param('idOrder') idOrder: string,
     @Body() createReviewDto: CreateReviewDto,
   ) {
     const newReview = await this.reviewService.createReview(
       createReviewDto,
       idClient,
       idUser,
+      idOrder,
     );
     this.reviewService.calculateAverage(idUser);
     return await this.reviewService.getReviewById(newReview.id);

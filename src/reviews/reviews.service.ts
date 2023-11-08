@@ -5,6 +5,7 @@ import { Review } from './reviews.entity';
 import { ClientsService } from 'src/clients/clients.service';
 import { ProfileReviewsService } from 'src/profileReviews/profileReviews.service';
 import { Injectable } from '@nestjs/common';
+import { OrdersService } from 'src/orders/orders.service';
 
 @Injectable()
 export class ReviewsService {
@@ -12,19 +13,23 @@ export class ReviewsService {
     @InjectRepository(Review) private reviewRespository: Repository<Review>,
     private clientService: ClientsService,
     private profileReviewsService: ProfileReviewsService,
+    private orderService: OrdersService,
   ) {}
 
   async createReview(
     createReviewDto: CreateReviewDto,
     clientId: string,
     Id: string,
+    orderId: string,
   ) {
     const clientFound = await this.clientService.getClientById(clientId);
     const profileFound =
       await this.profileReviewsService.getProfileReviewsById(Id);
 
     const newReview = this.reviewRespository.create(createReviewDto);
+    const orderFound = await this.orderService.getOrderById(orderId);
 
+    newReview.order = orderFound;
     newReview.reviewer = clientFound;
     newReview.reviewed = profileFound;
 

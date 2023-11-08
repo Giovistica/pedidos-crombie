@@ -7,10 +7,13 @@ import { Client } from 'src/clients/client.entity';
 import { ClientsModule } from 'src/clients/clients.module';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
 import { ProfileReviewsModule } from 'src/profileReviews/profileReviews.module';
+import { Orders } from 'src/orders/orders.entity';
+import { OrdersModule } from 'src/orders/orders.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Review, Client, ProfileReviews]),
+    TypeOrmModule.forFeature([Review, Client, ProfileReviews, Orders]),
+    OrdersModule,
     ClientsModule,
     ProfileReviewsModule,
   ],
@@ -18,4 +21,4 @@ import { ProfileReviewsModule } from 'src/profileReviews/profileReviews.module';
   controllers: [ReviewsController],
   exports: [ReviewsService],
 })
-export class RewiesModule {}
+export class ReviewsModule {}
