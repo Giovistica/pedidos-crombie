@@ -14,6 +14,7 @@ export class Eatable {
   description: string;
 
   @Column({
+    length: 1000,
     default:
       'https://www.cocinacaserayfacil.net/wp-content/uploads/2020/03/Recetas-faciles-de-cocinar-y-sobrevivir-en-casa-al-coronavirus_2.jpg',
   })
