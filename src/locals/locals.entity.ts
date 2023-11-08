@@ -32,7 +32,7 @@ export class Local {
   @OneToMany(() => Orders, (order) => order.local, { eager: true })
   ordersHistory: Array<Orders>[];
 
-  @OneToOne(() => ProfileReviews)
+  @OneToOne(() => ProfileReviews, { eager: true })
   @JoinColumn()
   profileReviews: ProfileReviews;
 
