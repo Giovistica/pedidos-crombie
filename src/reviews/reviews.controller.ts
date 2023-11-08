@@ -23,14 +23,14 @@ export class ReviewsController {
     //ojo que si no se pasan bien los datos guarda cualquier cosa
     @Param('idClient') idClient: string,
     @Param('idProfile') idUser: string,
-    @Param('idOrder') idOrder: string,
+    //@Param('idOrder') idOrder: string,
     @Body() createReviewDto: CreateReviewDto,
   ) {
     const newReview = await this.reviewService.createReview(
       createReviewDto,
       idClient,
       idUser,
-      idOrder,
+      //idOrder,
     );
     this.reviewService.calculateAverage(idUser);
     return await this.reviewService.getReviewById(newReview.id);

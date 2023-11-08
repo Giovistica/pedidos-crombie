@@ -20,16 +20,16 @@ export class ReviewsService {
     createReviewDto: CreateReviewDto,
     clientId: string,
     Id: string,
-    orderId: string,
+    //orderId: string,
   ) {
     const clientFound = await this.clientService.getClientById(clientId);
     const profileFound =
       await this.profileReviewsService.getProfileReviewsById(Id);
 
     const newReview = this.reviewRespository.create(createReviewDto);
-    const orderFound = await this.orderService.getOrderById(orderId);
+   // const orderFound = await this.orderService.getOrderById(orderId);
 
-    newReview.order = orderFound;
+    //newReview.order = orderFound;
     newReview.reviewer = clientFound;
     newReview.reviewed = profileFound;
 
