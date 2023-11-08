@@ -67,8 +67,8 @@ export class LocalsService {
   async getOrdersByLocal(id: string) {
     const local = await this.localRespository
       .createQueryBuilder('local')
-      .leftJoinAndSelect('local.orders', 'orders')
-      .where('local.id = :localId', { id })
+      .leftJoinAndSelect('local.ordersHistory', 'orders')
+      .where('local.id = :localId', { localId: id })
       .getOne();
 
     if (local) {
