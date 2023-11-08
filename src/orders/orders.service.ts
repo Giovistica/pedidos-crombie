@@ -142,6 +142,7 @@ export class OrdersService {
       this.orderRespository.createQueryBuilder('orders');
 
     query
+      .leftJoinAndSelect('orders.delivery', 'delivery')
       .where('orders.date >= :thirtyDaysAgo', { thirtyDaysAgo })
       .andWhere(`orders.${userType}Id = :userId`, { userId })
       .getMany();

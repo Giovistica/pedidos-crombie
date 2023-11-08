@@ -34,19 +34,13 @@ export class Orders {
   @ManyToOne(() => Address, (address) => address.orders)
   address: Address;
 
-  @ManyToOne(() => Client, (client) => client.ordersHistory, {
-    eager: true,
-  })
+  @ManyToOne(() => Client, (client) => client.ordersHistory)
   client: Client;
 
-  @ManyToOne(() => Local, (local) => local.ordersHistory, {
-    eager: true,
-  })
+  @ManyToOne(() => Local, (local) => local.ordersHistory)
   local: Local;
 
-  @ManyToOne(() => Delivery, (delivery) => delivery.ordersHistory, {
-    eager: true,
-  })
+  @ManyToOne(() => Delivery, (delivery) => delivery.ordersHistory)
   delivery: Delivery;
 
   @Column({ default: Status.waiting })
