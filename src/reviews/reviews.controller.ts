@@ -33,7 +33,7 @@ export class ReviewsController {
       idUser,
       //idOrder,
     );
-    this.reviewService.calculateAverage(idUser);
+    //this.reviewService.calculateAverage(idUser);
     return await this.reviewService.getReviewById(newReview.id);
   }
 
