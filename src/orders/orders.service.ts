@@ -143,6 +143,8 @@ export class OrdersService {
 
     query
       .leftJoinAndSelect('orders.delivery', 'delivery')
+      .leftJoinAndSelect('orders.local', 'local')
+      .leftJoinAndSelect('orders.client', 'client')
       .where('orders.date >= :thirtyDaysAgo', { thirtyDaysAgo })
       .andWhere(`orders.${userType}Id = :userId`, { userId })
       .getMany();
