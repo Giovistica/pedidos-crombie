@@ -9,10 +9,10 @@ export class Review {
   @Generated('uuid')
   id: string;
 
-  @Column()
+  @Column({ default: 'Review' })
   title: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()
