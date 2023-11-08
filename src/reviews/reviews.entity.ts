@@ -15,7 +15,7 @@ export class Review {
   @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ default: 0 })
   @Max(5)
   @Min(0)
   punctuation: number;
