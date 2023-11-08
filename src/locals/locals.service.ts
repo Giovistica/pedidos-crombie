@@ -63,4 +63,18 @@ export class LocalsService {
     localFound.address = newAdress;
     return this.localRespository.save(localFound);
   }
+
+  async getOrdersByLocal(id: string) {
+    const local = await this.localRespository
+      .createQueryBuilder('local')
+      .leftJoinAndSelect('local.orders', 'orders')
+      .where('local.id = :localId', { id })
+      .getOne();
+
+    if (local) {
+      return local.ordersHistory;
+    }
+
+    return [];
+  }
 }
