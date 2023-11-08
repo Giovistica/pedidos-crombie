@@ -18,7 +18,7 @@ export class ReviewsController {
   constructor(private reviewService: ReviewsService) {}
 
   @Auth([Roles.CLIENT])
-  @Post(':idClient/:idProfile/:idOrder')
+  @Post(':idClient/:idProfile')
   async createReview(
     //ojo que si no se pasan bien los datos guarda cualquier cosa
     @Param('idClient') idClient: string,

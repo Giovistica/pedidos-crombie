@@ -1,15 +1,7 @@
 import { Max, Min } from 'class-validator';
 import { Client } from 'src/clients/client.entity';
-import { Orders } from 'src/orders/orders.entity';
 import { ProfileReviews } from 'src/profileReviews/profileReviews.entity';
-import {
-  Column,
-  Entity,
-  Generated,
-  ManyToOne,
-  OneToOne,
-  PrimaryColumn,
-} from 'typeorm';
+import { Column, Entity, Generated, ManyToOne, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class Review {
