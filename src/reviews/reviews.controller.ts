@@ -7,7 +7,6 @@ import {
   HttpStatus,
   Param,
   Post,
-  Query,
 } from '@nestjs/common';
 import { ReviewsService } from './reviews.service';
 import { CreateReviewDto } from './dto/createReviewDto';
@@ -37,16 +36,28 @@ export class ReviewsController {
     return await this.reviewService.getReviewById(newReview.id);
   }
 
-  @Auth([Roles.ADMIN])
-  @Get()
-  getAllReviews() {
-    return this.reviewService.getReviews();
-  }
+  // @Auth([Roles.LOCAL, Roles.DELIVERY])
+  // @Get(':id')
+  // async getReviewByOrder(
+  //   @Param('idOrder') idOrder: string,
+  //   @Param('idProfile') idProfile: string,
+  // ) {
+  //   return this.reviewService.findReviewByOrderAndProfileReview(
+  //     idOrder,
+  //     idProfile,
+  //   );
+  // }
 
   @Auth([Roles.LOCAL, Roles.DELIVERY])
   @Get(':id')
   getAll30Reviews(@Param('id') id: string) {
     return this.reviewService.getReviewsByProfileReviews(id);
+  }
+
+  @Auth([Roles.ADMIN])
+  @Get()
+  getAllReviews() {
+    return this.reviewService.getReviews();
   }
 
   @Auth([Roles.LOCAL, Roles.DELIVERY])

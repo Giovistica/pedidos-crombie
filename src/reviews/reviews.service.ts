@@ -35,6 +35,20 @@ export class ReviewsService {
 
     return this.reviewRespository.save(newReview);
   }
+  // async findReviewByOrderAndProfileReview(
+  //   orderId: string,
+  //   profileReviewId: string,
+  // ) {
+  //   const review = await this.reviewRespository
+  //     .createQueryBuilder('review')
+  //     .where('review.orderId = :orderId', { orderId })
+  //     .andWhere('review.profileReviewId = :profileReviewId', {
+  //       profileReviewId,
+  //     })
+  //     .getOne();
+
+  //   return review || null;
+  // }
 
   getReviews() {
     return this.reviewRespository.find();
