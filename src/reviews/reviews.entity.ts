@@ -28,8 +28,8 @@ export class Review {
   @Min(0)
   punctuation: number;
 
-  @OneToOne(() => Orders, { eager: true })
-  order: Orders;
+  //@OneToOne(() => Orders, { eager: true })
+  //order: Orders;
 
   @ManyToOne(() => Client, (client) => client.reviewsMade)
   reviewer: Client;
