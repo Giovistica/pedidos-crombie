@@ -26,6 +26,7 @@ export class ReviewsController {
     //@Param('idOrder') idOrder: string,
     @Body() createReviewDto: CreateReviewDto,
   ) {
+    console.log(createReviewDto);
     const newReview = await this.reviewService.createReview(
       createReviewDto,
       idClient,
