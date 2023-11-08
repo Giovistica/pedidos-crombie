@@ -11,7 +11,6 @@ import { DeliverysService } from './deliverys.service';
 import { Roles } from 'src/enums/role.enum';
 import { Auth } from 'src/auth/decorators/auth.decorators';
 
-@Auth([Roles.DELIVERY])
 @Controller('deliverys')
 export class DeliverysController {
   constructor(private deliveryService: DeliverysService) {}
@@ -26,7 +25,7 @@ export class DeliverysController {
   getAllDeliverys() {
     return this.deliveryService.getDeliverys();
   }
-
+  @Auth([Roles.DELIVERY, Roles.CLIENT])
   @Get(':id')
   async getDelivery(@Param('id', new ParseUUIDPipe()) id: string) {
     const deliveryFound = await this.deliveryService.getDeliveryById(id);
