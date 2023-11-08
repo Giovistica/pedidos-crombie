@@ -99,6 +99,16 @@ export class LocalsController {
   ) {
     return this.localService.AddAdressToLocal(address, id);
   }
+
+  @Auth([Roles.LOCAL])
+  @Get('orders/:id')
+  async getOrders(@Param('id') id: string) {
+    const localFound = await this.localService.getLocalById(id);
+    if (!localFound) {
+      throw new HttpException('Local does not exist', HttpStatus.NOT_FOUND);
+    }
+    return localFound;
+  }
   @Auth([Roles.LOCAL])
   @Get(':id')
   async getLocal(@Param('id') id: string) {

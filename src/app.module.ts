@@ -34,11 +34,11 @@ import { SseModule } from './sse/sse.module';
     ConfigModule.forRoot({ envFilePath: '.env', isGlobal: true }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: process.env.HOST,
-      port: parseInt(process.env.DB_PORT),
-      username: process.env.DATABASE_USER,
-      password: process.env.DATABASE_PASSWORD,
-      database: process.env.DATABASE,
+      host: process.env.MYSQLHOST,
+      port: parseInt(process.env.MYSQLPORT),
+      username: process.env.MYSQL_USER,
+      password: process.env.MYSQL_PASSWORD,
+      database: process.env.MYSQL_DATABASE,
       entities: [
         User,
         Client,

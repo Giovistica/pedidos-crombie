@@ -16,7 +16,7 @@ export class Delivery {
   @Generated('uuid')
   id: string;
 
-  @OneToMany(() => Orders, (order) => order.delivery, { eager: true })
+  @OneToMany(() => Orders, (order) => order.delivery)
   ordersHistory: Array<Orders>[];
 
   @OneToOne(() => ProfileReviews, { eager: true })

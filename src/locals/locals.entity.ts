@@ -29,7 +29,7 @@ export class Local {
   @Column({ type: 'enum', enum: LocalType, default: LocalType.grocery })
   type: LocalType;
 
-  @OneToMany(() => Orders, (order) => order.local, { eager: true })
+  @OneToMany(() => Orders, (order) => order.local)
   ordersHistory: Array<Orders>[];
 
   @OneToOne(() => ProfileReviews)
